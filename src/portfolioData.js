@@ -253,7 +253,7 @@ const DORUK_GROUP_URL = "http://dorukiletisim.com.tr/tr";
 
 const BRANDING = {
   samsung: { logo: "/portfolio/samsung-logo-black.svg", surface: "#f4f6ff", surfaceAlt: "#ffffff", ink: "#1428a0", muted: "#56618b", accent: "#1428a0", accentStrong: "#091b8f", mark: "S" },
-  sharge: { logo: "https://www.shargeturkiye.com/cdn/shop/files/sharge-logo.webp?v=1742480906&width=1000", surface: "#071008", surfaceAlt: "#101b11", ink: "#ffffff", muted: "#b8c3b9", accent: "#abce05", accentStrong: "#c4eb16", mark: "SH" },
+  sharge: { logo: "/portfolio/sharge-logo.avif", surface: "#071008", surfaceAlt: "#101b11", ink: "#ffffff", muted: "#b8c3b9", accent: "#abce05", accentStrong: "#c4eb16", mark: "SH" },
   ayaneo: { logo: "https://www.ayaneo.com/ayaneo/img/footer/brand.png", surface: "#08080a", surfaceAlt: "#17171a", ink: "#f2f2f2", muted: "#a7a7ac", accent: "#c9c9ce", accentStrong: "#ffffff", mark: "AY" },
   inse: { logo: "https://inselife.com/cdn/shop/files/Animation_logo_36660306-f9d4-4530-873c-e4104b4015e6.png?height=100&v=1681715983", surface: "#eaf9fc", surfaceAlt: "#ffffff", ink: "#073a4a", muted: "#47727e", accent: "#1096b9", accentStrong: "#087894", mark: "IN" },
   turkcell: { logo: "https://ffo3gv1cf3ir.merlincdn.net/SiteAssets/Hakkimizda/genel-bakis/logolarimiz/TURKCELL_YATAY_ERKEK_LOGO.png", surface: "#fff8d7", surfaceAlt: "#ffffff", ink: "#164194", muted: "#596785", accent: "#fec500", accentStrong: "#164194", mark: "TC" },
@@ -856,6 +856,7 @@ export const REACH_PROFILES = [
   {
     id: "sharge",
     name: "Sharge",
+    logo: "/portfolio/sharge-logo.avif",
     mode: "shenzhen",
     accent: "#f19a24",
     copy: {

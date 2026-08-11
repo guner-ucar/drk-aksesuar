@@ -1859,8 +1859,7 @@ function OutboundLink({ href, className = "", children, ...rest }) {
   );
 }
 
-// Brand wordmarks. Samsung/Sharge reuse their existing styled marks so their
-// identity is untouched; SpeedWA is a themeable wordmark (white on dark, navy
+// Brand wordmarks. SpeedWA is a themeable wordmark (white on dark, navy
 // on light) with a controlled orange tick accent.
 // Brand identity: real logo when we have one, otherwise the brand's *name* set
 // in clean type. We never fabricate a logo from initials.
@@ -1874,18 +1873,10 @@ function BrandWordmark({ company, wordmark, name }) {
       </span>
     );
   }
-  if (wordmark === "sharge") {
-    return (
-      <span className="pf-wordmark pf-wordmark--sharge" role="img" aria-label={name}>
-        <Zap className="pf-wordmark__bolt" size={17} aria-hidden="true" />
-        <span className="pf-wordmark__a">SHARGE</span>
-      </span>
-    );
-  }
   const branding = company?.branding;
   if (branding?.logo) {
     return (
-      <span className="brand-identity has-image" role="img" aria-label={`${name} logo`}>
+      <span className="brand-identity has-image" data-brand={company?.id} role="img" aria-label={`${name} logo`}>
         <img
           className="brand-identity__image"
           src={branding.logo}
@@ -3075,6 +3066,7 @@ function MarketReach({ lang, selectedId, onSelect }) {
           <button
             type="button"
             key={item.id}
+            data-profile={item.id}
             aria-pressed={item.id === profile.id}
             className={item.id === profile.id ? "is-active" : ""}
             style={{ "--tab-accent": item.accent }}

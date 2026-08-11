@@ -4642,25 +4642,6 @@ svg {
   clip-path: polygon(78% 0, 100% 16%, 34% 100%, 16% 78%);
 }
 
-/* Sharge text wordmark — bolt + SHARGE, mirrors the real logo and inherits the
-   surrounding surface colour so it reads in every context (light header, dark
-   footer, dark brand panel). */
-.pf-wordmark--sharge {
-  align-items: center;
-  gap: 5px;
-  padding-right: 0;
-  color: inherit;
-  letter-spacing: -0.01em;
-}
-
-.pf-wordmark--sharge .pf-wordmark__a { color: inherit; font-weight: 800; }
-
-.pf-wordmark--sharge .pf-wordmark__bolt {
-  flex: 0 0 auto;
-  color: var(--sw-orange, var(--brand-accent, #abce05));
-  fill: var(--sw-orange, var(--brand-accent, #abce05));
-}
-
 /* --- Teaser popover ----------------------------------------------------- */
 .pf-pop {
   position: absolute;
@@ -6022,13 +6003,30 @@ svg {
 .reach-switcher button.is-active i { background: #fff; }
 
 .reach-switcher__logo {
-  height: 34px;
+  display: block;
+  box-sizing: content-box;
+  height: 20px;
   width: auto;
-  max-width: 180px;
+  max-width: 112px;
   object-fit: contain;
-  border-radius: 4px;
+  border-radius: 5px;
 }
-.reach-switcher button.is-active .reach-switcher__logo { background: #fff; padding: 4px 9px; border-radius: 7px; }
+.reach-switcher button[data-profile="samsung"] .reach-switcher__logo {
+  height: 16px;
+  max-width: 92px;
+}
+.reach-switcher button[data-profile="sharge"] .reach-switcher__logo {
+  height: 19px;
+  max-width: 94px;
+  padding: 5px 9px;
+  border-radius: 7px;
+  background: #101710;
+}
+.reach-switcher button.is-active:not([data-profile="sharge"]) .reach-switcher__logo {
+  padding: 4px 9px;
+  border-radius: 7px;
+  background: #fff;
+}
 
 .market-reach__grid { grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr); }
 
@@ -6581,7 +6579,12 @@ svg {
 .pf-cyl__brandbadge .brand-identity > strong,
 .pf-cyl__brandbadge > .brand-identity strong { font-size: 13px; font-weight: 800; color: #12162a; white-space: nowrap; }
 .pf-cyl__brandbadge .pf-wordmark { font-size: 17px; color: #12162a; }
-.pf-cyl__brandbadge .pf-wordmark--sharge { padding-right: 0; }
+.pf-cyl__brandbadge .brand-identity[data-brand="sharge"] {
+  width: auto;
+  padding: 4px 8px;
+  border-radius: 7px;
+  background: #101710;
+}
 @media (max-width: 640px) {
   .pf-cyl__brandbadge { height: 34px; padding: 0 12px; max-width: 40%; }
   .pf-cyl__brandbadge .brand-identity__image { height: 16px; max-width: 96px; }
