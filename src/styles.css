@@ -4035,6 +4035,93 @@ svg {
   color: rgba(255, 255, 255, 0.64);
 }
 
+/* Flagship work appears immediately after the opening experience so the most
+   important proof points are understood before the general capability map. */
+.flagship-operations {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(20, 40, 160, .08), transparent 28%),
+    radial-gradient(circle at 92% 88%, rgba(171, 206, 5, .11), transparent 27%),
+    #f7f9fd;
+}
+
+.flagship-operations::before {
+  content: "OPERATIONS";
+  position: absolute;
+  right: -34px;
+  top: 8px;
+  color: rgba(24, 34, 74, .035);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(86px, 13vw, 190px);
+  font-weight: 800;
+  letter-spacing: -.08em;
+  pointer-events: none;
+}
+
+.flagship-operations__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 42px;
+}
+
+.flagship-operation {
+  position: relative;
+  min-height: 330px;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 3vw, 36px);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--operation-accent) 18%, #dce1ec);
+  border-radius: 24px;
+  color: #171a34;
+  background:
+    radial-gradient(circle at 100% 0, color-mix(in srgb, var(--operation-accent) 14%, transparent), transparent 42%),
+    linear-gradient(145deg, #fff, var(--operation-surface));
+  box-shadow: 0 22px 58px rgba(25, 35, 72, .09);
+}
+
+.flagship-operation::after {
+  content: "";
+  position: absolute;
+  right: -50px;
+  bottom: -70px;
+  width: 180px;
+  height: 180px;
+  border: 1px solid color-mix(in srgb, var(--operation-accent) 24%, transparent);
+  border-radius: 44px;
+  transform: rotate(30deg);
+  pointer-events: none;
+}
+
+.flagship-operation--sharge { color: #f7faef; background: radial-gradient(circle at 100% 0, rgba(171, 206, 5, .2), transparent 42%), linear-gradient(145deg, #0e1510, #182118); }
+.flagship-operation__head { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.flagship-operation__logo { width: min(190px, 48%); min-height: 34px; display: flex; align-items: center; }
+.flagship-operation__logo .brand-identity { color: inherit; }
+.flagship-operation__logo .brand-identity__image { width: auto; max-width: 100%; height: 32px; object-fit: contain; object-position: left center; }
+.flagship-operation__logo .pf-wordmark { color: inherit; font-size: 26px; }
+.flagship-operation__period { display: inline-flex; align-items: center; gap: 7px; padding: 8px 11px; border: 1px solid color-mix(in srgb, var(--operation-accent) 28%, transparent); border-radius: 999px; color: var(--operation-accent); background: color-mix(in srgb, var(--operation-accent) 8%, #fff); font-size: 8px; font-weight: 900; letter-spacing: .1em; white-space: nowrap; }
+.flagship-operation--sharge .flagship-operation__period { color: #c4eb16; background: rgba(171, 206, 5, .09); }
+.flagship-operation > small { position: relative; z-index: 1; margin-top: 38px; color: var(--operation-accent); font-size: 8px; font-weight: 900; letter-spacing: .12em; }
+.flagship-operation > h3 { position: relative; z-index: 1; max-width: 20ch; margin: 12px 0 0; color: inherit; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.05; letter-spacing: -.045em; }
+.flagship-operation > p { position: relative; z-index: 1; max-width: 58ch; margin: 16px 0 0; color: #687086; font-size: 11px; line-height: 1.75; }
+.flagship-operation--sharge > p { color: rgba(244, 248, 235, .66); }
+.flagship-operation__tags { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 7px; margin-top: auto; padding-top: 24px; }
+.flagship-operation__tags span { padding: 7px 10px; border: 1px solid color-mix(in srgb, var(--operation-accent) 18%, #dde2ec); border-radius: 999px; color: color-mix(in srgb, var(--operation-accent) 76%, #34384a); background: rgba(255,255,255,.62); font-size: 8px; font-weight: 800; }
+.flagship-operation--sharge .flagship-operation__tags span { color: #d7e9a0; border-color: rgba(171,206,5,.23); background: rgba(171,206,5,.07); }
+.flagship-operations__legacy { display: flex; align-items: flex-start; gap: 10px; margin: 20px 0 0; padding: 18px 20px; border: 1px solid #e3e7f0; border-radius: 14px; color: #60687d; background: rgba(255,255,255,.72); font-size: 10px; line-height: 1.65; }
+.flagship-operations__legacy svg { flex: 0 0 auto; margin-top: 1px; color: #1428a0; }
+
+@media (max-width: 760px) {
+  .flagship-operations__grid { grid-template-columns: 1fr; margin-top: 30px; }
+  .flagship-operation { min-height: 310px; padding: 24px; }
+  .flagship-operation__head { align-items: flex-start; }
+  .flagship-operation__period { font-size: 7px; }
+}
+
 /* ===========================================================================
    MARKET REACH — Türkiye map + commercial-volume reputation figures
    =========================================================================== */
@@ -4211,6 +4298,13 @@ svg {
   mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
 }
 
+.portfolio-rails { position: relative; z-index: 2; margin-top: 42px; }
+.portfolio-rail + .portfolio-rail { margin-top: 30px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.12); }
+.portfolio-rail__head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
+.portfolio-rail__head strong { color: #fff; font-size: 10px; font-weight: 900; letter-spacing: .17em; }
+.portfolio-rail__head span { color: rgba(255,255,255,.45); font-size: 9px; }
+.portfolio-rail .brand-marquee { margin-top: 14px; }
+
 .brand-marquee__track {
   display: flex;
   width: max-content;
@@ -4282,10 +4376,22 @@ svg {
 .brand-marquee__card.is-flagship .brand-marquee__meta { color: var(--brand-accent); }
 .brand-marquee__card.is-flagship .brand-marquee__meta svg:first-child { opacity: 1; }
 
+.brand-marquee--brands .brand-marquee__track { animation-duration: 42s; animation-direction: reverse; gap: 12px; }
+.brand-marquee--brands .brand-marquee__card { width: 196px; height: 108px; justify-content: center; padding: 16px 19px; border-radius: 15px; box-shadow: 0 12px 34px rgba(6,10,30,.2); }
+.brand-marquee--brands .brand-marquee__logo { min-height: 44px; justify-content: center; }
+.brand-marquee--brands .brand-marquee__logo .brand-identity { justify-content: center; }
+.brand-marquee--brands .brand-marquee__logo .brand-identity__image { height: 30px; max-width: 142px; object-position: center; }
+.brand-marquee--brands .brand-marquee__logo .brand-identity > strong { font-size: 19px; text-align: center; }
+.brand-marquee--brands .brand-marquee__logo .pf-wordmark { font-size: 22px; }
+.brand-marquee--brands .brand-marquee__meta { display: none; }
+
 @media (max-width: 700px) {
-  .brand-marquee { margin-top: 30px; }
+  .portfolio-rails { margin-top: 30px; }
+  .portfolio-rail__head { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .brand-marquee { margin-top: 18px; }
   .brand-marquee__card { width: 220px; height: 132px; padding: 18px 20px; }
   .brand-marquee__track { animation-duration: 40s; }
+  .brand-marquee--brands .brand-marquee__card { width: 166px; height: 94px; padding: 14px 16px; }
 }
 
 /* --- Card grid ---------------------------------------------------------- */
@@ -6440,6 +6546,16 @@ svg {
 .pf-cyl__topbar > span { margin-right: auto; }
 .pf-cyl__topbar > span b { color: #c6e52f; }
 .pf-cyl__topbar button:hover { border-color: #c6e52f; color: #d9f452; }
+.pf-cyl__topbar button.pf-cyl__enter {
+  border-color: #c6e52f;
+  color: #11170b;
+  background: #c6e52f;
+  box-shadow: 0 10px 28px rgba(172, 206, 5, .24);
+}
+.pf-cyl__topbar button.pf-cyl__enter:hover,
+.pf-cyl__topbar button.pf-cyl__enter:focus-visible { color: #080b05; background: #d9f452; transform: translateY(-1px); }
+.pf-cyl__topbar button.pf-cyl__exit { border-color: rgba(255,255,255,.28); background: rgba(7,11,24,.86); }
+.pf-cyl__topbar button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
 /* Active company's logo, pinned bottom-left of the 3D window. White pill so any
    logo reads on the dark backdrop — including the black Samsung wordmark. */

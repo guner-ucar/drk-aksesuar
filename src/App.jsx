@@ -54,6 +54,10 @@ const LOGO_PATH = "/brand/drk-aksesuar-logo.png";
 const CONTACT_EMAIL = "info@drkisortagim.com";
 const CONTACT_ADDRESS = "Sinpaş Flatofis, Defterdar, Otakçılar Cd. No:78, 34055 Eyüpsultan/İstanbul";
 const CONTACT_ADDRESS_SHORT = "Sinpaş Flatofis · Eyüpsultan / İstanbul";
+const PORTFOLIO_BY_NAME = new Map(PORTFOLIO_COMPANIES.map((company) => [company.name, company]));
+const GROUP_PORTFOLIO_COMPANIES = PORTFOLIO_COMPANIES.filter((company) => company.kind === "group");
+const BRAND_PORTFOLIO_COMPANIES = PORTFOLIO_COMPANIES.filter((company) => company.kind === "brand");
+const FLAGSHIP_OPERATION_ICONS = [ShoppingBag, Globe2, Store, Zap];
 
 const SERVICE_DEFS = [
   {
@@ -153,7 +157,7 @@ const COPY = {
       primary: "İhtiyacınızı birlikte analiz edelim",
       secondary: "Yetkinlikleri keşfedin",
       trustBrand: "SAMSUNG",
-      trustText: "Türkiye pazaryeri operasyonlarını yönetiyor ve yönetmeye devam ediyoruz",
+      trustText: "Pazaryeri, resmi online mağaza ve Otel TV operasyonlarında uzun soluklu deneyim",
     },
     analyzer: {
       eyebrow: "BÜYÜME İHTİYACI RADARI",
@@ -197,6 +201,50 @@ const COPY = {
       label: "TEK EKİP. UÇTAN UCA MARKA, KANAL VE BÜYÜME OPERASYONU.",
       items: ["MARKA TEMSİLİ", "DİSTRİBÜTÖRLÜK", "E-TİCARET", "PERAKENDE", "PAZARLAMA", "CRM"],
     },
+    flagship: {
+      eyebrow: "AMİRAL OPERASYONLAR",
+      title: "Türkiye'de markayı yalnızca satmıyor, uçtan uca işletiyoruz.",
+      text: "Samsung Türkiye ile farklı dönem ve kanallarda geliştirdiğimiz operasyon kasını, Sharge'ın omnichannel büyüme modelinde geleceğe taşıyoruz.",
+      items: [
+        {
+          id: "samsung-marketplace",
+          brand: "Samsung",
+          title: "Samsung Pazaryeri Operasyonu",
+          period: "DEVAM EDİYOR",
+          channel: "Marketplace · 360° operasyon",
+          text: "Ürün listeleme, fiyat, stok, kampanya, sipariş, lojistik, iade ve satış sonrası süreçlerini Türkiye'nin önde gelen pazaryerlerinde yönetiyoruz.",
+          tags: ["7+ pazaryeri", "Satış & operasyon", "Raporlama"],
+        },
+        {
+          id: "samsung-shop",
+          brand: "Samsung",
+          title: "Samsung Resmi Online Mağaza",
+          period: "2017–2025",
+          channel: "shop.samsung.com/tr · D2C",
+          text: "Samsung Türkiye resmi online mağazasının satış operasyonlarını; katalogdan siparişe, kampanyadan müşteri deneyimine kadar yönettik.",
+          tags: ["Resmi online mağaza", "D2C satış", "Uçtan uca işletim"],
+        },
+        {
+          id: "samsung-hotel-tv",
+          brand: "Samsung",
+          title: "Samsung Otel TV Operasyonu",
+          period: "2025–GÜNÜMÜZ",
+          channel: "Otel TV · B2B",
+          text: "Samsung Otel TV ürünlerinin Türkiye'deki ticari operasyonunu; proje geliştirme, kurumsal satış ve kanal koordinasyonuyla üstleniyoruz.",
+          tags: ["Otel TV", "B2B proje", "Kanal geliştirme"],
+        },
+        {
+          id: "sharge-omnichannel",
+          brand: "Sharge",
+          title: "Sharge Türkiye Omnichannel",
+          period: "BÜYÜYOR",
+          channel: "Marka işletimi · Omnichannel",
+          text: "Resmi e-ticaret, pazaryeri, perakende, içerik ve müşteri deneyimini tek marka işletim sistemi altında büyütüyoruz.",
+          tags: ["Omnichannel", "Marka temsili", "Yerel büyüme"],
+        },
+      ],
+      legacy: "2017–2025 döneminde Eskisini Getir Yenisini Götür gibi Samsung kampanyalarının satış ve operasyon akışlarını da yürüttük.",
+    },
     reach: {
       eyebrow: "TÜRKİYE'DEKİ TİCARİ HACMİMİZ",
       title: "Türkiye pazarında güçlü ve ölçülebilir bir ticari hacim.",
@@ -206,9 +254,9 @@ const COPY = {
       note: "Rakamlar DRK Aksesuar operasyonlarının güncel ticari hacmini yansıtır.",
     },
     portfolio: {
-      eyebrow: "MARKA PORTFÖYÜ",
-      title: "Seçili markalar.\nGüçlü kategori ortaklıkları.",
-      text: "Portföyümüzdeki markaları doğru kanal yapısı, yerel tüketici içgörüsü ve sürdürülebilir ticari operasyonla büyütüyoruz.",
+      eyebrow: "ŞİRKETLER & MARKALAR",
+      title: "Güçlü şirket yapısı.\nSeçili marka ortaklıkları.",
+      text: "Doruk Grup şirketlerinin operasyon gücünü, birlikte çalıştığımız teknoloji markalarının yerel büyüme hedefleriyle buluşturuyoruz.",
       samsung: "Mobil teknoloji ekosisteminde geniş kategori ve kanal gücü.",
       sharge: "Yeni nesil şarj teknolojilerinde tasarım ve inovasyon odağı.",
       status: "DRK PORTFÖYÜ",
@@ -217,6 +265,10 @@ const COPY = {
       reachAction: "Ticari ağı göster",
       previewAction: "Tam ekran ön izleme",
       websiteAction: "Web sitesine git",
+      companiesLabel: "DRK & DORUK GRUP ŞİRKETLERİ",
+      companiesText: "Operasyonu taşıyan grup şirketleri",
+      brandsLabel: "ÇALIŞTIĞIMIZ MARKALAR",
+      brandsText: "Kategori ortaklıklarımız ve yönettiğimiz markalar",
     },
     servicesSection: {
       eyebrow: "DRK NE YAPAR?",
@@ -428,7 +480,7 @@ const COPY = {
       primary: "Let’s assess your needs",
       secondary: "Explore capabilities",
       trustBrand: "SAMSUNG",
-      trustText: "We run — and continue to run — its Türkiye marketplace operations",
+      trustText: "Long-standing experience across marketplace, official online-store and Hotel TV operations",
     },
     analyzer: {
       eyebrow: "GROWTH NEEDS RADAR",
@@ -472,6 +524,50 @@ const COPY = {
       label: "ONE TEAM. END-TO-END BRAND, CHANNEL AND GROWTH OPERATIONS.",
       items: ["BRAND REPRESENTATION", "DISTRIBUTION", "E-COMMERCE", "RETAIL", "MARKETING", "CRM"],
     },
+    flagship: {
+      eyebrow: "FLAGSHIP OPERATIONS",
+      title: "We do more than sell brands in Türkiye — we operate them end to end.",
+      text: "The operating depth built across multiple Samsung Türkiye channels now powers Sharge's omnichannel growth model.",
+      items: [
+        {
+          id: "samsung-marketplace",
+          brand: "Samsung",
+          title: "Samsung Marketplace Operations",
+          period: "ONGOING",
+          channel: "Marketplace · 360° operations",
+          text: "We manage listings, pricing, inventory, campaigns, orders, logistics, returns and after-sales across Türkiye's leading marketplaces.",
+          tags: ["7+ marketplaces", "Sales & operations", "Reporting"],
+        },
+        {
+          id: "samsung-shop",
+          brand: "Samsung",
+          title: "Samsung Official Online Store",
+          period: "2017–2025",
+          channel: "shop.samsung.com/tr · D2C",
+          text: "We operated Samsung Türkiye's official online store across catalogue, orders, campaigns and customer experience.",
+          tags: ["Official online store", "D2C sales", "End-to-end operations"],
+        },
+        {
+          id: "samsung-hotel-tv",
+          brand: "Samsung",
+          title: "Samsung Hotel TV Operations",
+          period: "2025–PRESENT",
+          channel: "Hospitality TV · B2B",
+          text: "We lead the commercial operation for Samsung Hotel TV products in Türkiye through project development, B2B sales and channel coordination.",
+          tags: ["Hotel TV", "B2B projects", "Channel development"],
+        },
+        {
+          id: "sharge-omnichannel",
+          brand: "Sharge",
+          title: "Sharge Türkiye Omnichannel",
+          period: "SCALING",
+          channel: "Brand operations · Omnichannel",
+          text: "We grow official e-commerce, marketplaces, retail, content and customer experience under one connected brand operating system.",
+          tags: ["Omnichannel", "Brand representation", "Local growth"],
+        },
+      ],
+      legacy: "From 2017 to 2025, we also operated the sales and execution flows of Samsung campaigns, including trade-in programmes.",
+    },
     reach: {
       eyebrow: "OUR COMMERCIAL VOLUME IN TÜRKİYE",
       title: "A strong, measurable commercial volume across the Türkiye market.",
@@ -481,9 +577,9 @@ const COPY = {
       note: "Figures reflect the current commercial volume of DRK Aksesuar operations.",
     },
     portfolio: {
-      eyebrow: "BRAND PORTFOLIO",
-      title: "Selected brands.\nStrong category partnerships.",
-      text: "We grow brands in our portfolio through the right channel structure, local consumer insight and sustainable commercial operations.",
+      eyebrow: "COMPANIES & BRANDS",
+      title: "A strong company structure.\nSelected brand partnerships.",
+      text: "We connect the operating strength of Doruk Group companies with the local growth ambitions of the technology brands we work with.",
       samsung: "Broad category and channel strength across the mobile technology ecosystem.",
       sharge: "Design and innovation focus in next-generation charging technology.",
       status: "DRK PORTFOLIO",
@@ -492,6 +588,10 @@ const COPY = {
       reachAction: "Show commercial network",
       previewAction: "Full-screen preview",
       websiteAction: "Visit website",
+      companiesLabel: "DRK & DORUK GROUP COMPANIES",
+      companiesText: "Group companies powering the operation",
+      brandsLabel: "BRANDS WE WORK WITH",
+      brandsText: "Our category partnerships and managed brands",
     },
     servicesSection: {
       eyebrow: "WHAT DOES DRK DO?",
@@ -1663,6 +1763,47 @@ function EcosystemStrip({ lang }) {
   );
 }
 
+function FlagshipOperations({ lang }) {
+  const copy = COPY[lang].flagship;
+  return (
+    <section className="section flagship-operations" id="amiral-operasyonlar">
+      <div className="shell">
+        <SectionHeading eyebrow={copy.eyebrow} title={copy.title} text={copy.text} />
+        <div className="flagship-operations__grid">
+          {copy.items.map((item, index) => {
+            const company = PORTFOLIO_BY_NAME.get(item.brand);
+            const Icon = FLAGSHIP_OPERATION_ICONS[index];
+            return (
+              <article
+                className={`flagship-operation ${item.brand === "Sharge" ? "flagship-operation--sharge" : ""}`}
+                key={item.id}
+                style={{
+                  "--operation-accent": company?.branding?.accent || "#252a52",
+                  "--operation-surface": company?.branding?.surface || "#f5f7fb",
+                }}
+              >
+                <div className="flagship-operation__head">
+                  <span className="flagship-operation__logo">
+                    <BrandWordmark company={company} wordmark={company?.wordmark} name={item.brand} />
+                  </span>
+                  <span className="flagship-operation__period"><Icon size={14} /> {item.period}</span>
+                </div>
+                <small>{item.channel}</small>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+                <div className="flagship-operation__tags">
+                  {item.tags.map((tag) => <span key={tag}>{tag}</span>)}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+        <p className="flagship-operations__legacy"><Sparkles size={15} /> {copy.legacy}</p>
+      </div>
+    </section>
+  );
+}
+
 function SectionHeading({ eyebrow, title, text, center = false }) {
   return (
     <div className={`section-heading ${center ? "section-heading--center" : ""}`}>
@@ -1708,7 +1849,7 @@ function ServiceCard({ service, navigate, lang, compact = false }) {
 // PORTFOLIO PREVIEW EXPERIENCE (modular, reusable for DRK Group companies)
 // ---------------------------------------------------------------------------
 
-const IMMERSIVE_ID = "speedwa-immersive";
+const IMMERSIVE_ID = "portfolio-immersive";
 
 // Outbound links: always new tab + noopener/noreferrer, clearly separated
 // from the rest of the card so users are never sent off-site by accident.
@@ -2142,12 +2283,12 @@ const REEL_COPY = {
     label: "Marka web deneyimleri",
     eyebrow: "İNTERAKTİF PORTFÖY",
     title: "Markalarımızın dijital dünyalarını keşfedin.",
-    text: "Yana sürükleyerek grup markalarımızın web deneyimleri arasında gezinin; dilediğinizde tam ekran açıp siteyi keşfedin.",
-    hint: "Sürükleyin",
+    text: "Yana sürükleyerek 3D silindir etrafında gezinin. Seçtiğiniz deneyime yalnızca düğmeyle girin; aynı düğme alanından kolayca çıkın.",
+    hint: "Yana sürükleyin",
     prev: "Önceki marka",
     next: "Sonraki marka",
-    expand: "Tam ekran aç",
-    close: "Kapat",
+    expand: "Deneyime gir",
+    close: "Deneyimden çık",
     visit: "Resmi web sitesine git",
     portfolio: "Portföy şirketi",
   },
@@ -2155,12 +2296,12 @@ const REEL_COPY = {
     label: "Brand web experiences",
     eyebrow: "INTERACTIVE PORTFOLIO",
     title: "Explore the digital worlds of our brands.",
-    text: "Swipe sideways to browse our group brands' web experiences; open any of them fullscreen to explore the site.",
-    hint: "Drag",
+    text: "Swipe sideways around the 3D cylinder. Enter the selected experience only with the button and leave it from the same clear control area.",
+    hint: "Swipe sideways",
     prev: "Previous brand",
     next: "Next brand",
-    expand: "Open fullscreen",
-    close: "Close",
+    expand: "Enter experience",
+    close: "Exit experience",
     visit: "Visit official website",
     portfolio: "Portfolio company",
   },
@@ -2460,10 +2601,10 @@ function PortfolioReel({ companies, lang, initialIndex = 0, onExit, onExpand, fu
       <div className="pf-cyl__topbar">
         <span aria-live="polite"><b>{String(active + 1).padStart(2, "0")}</b> / {String(n).padStart(2, "0")} · {companies[active].name}</span>
         {onExpand ? (
-          <button type="button" onClick={() => onExpand(active)}><Layers3 size={15} /> {labels.expand}</button>
+          <button className="pf-cyl__enter" type="button" onClick={() => onExpand(active)} aria-label={labels.expand}><Layers3 size={15} /> <span>{labels.expand}</span></button>
         ) : null}
         {onExit ? (
-          <button type="button" onClick={onExit} aria-label={labels.close}><X size={18} /> <span>{labels.close}</span></button>
+          <button className="pf-cyl__exit" type="button" onClick={onExit} aria-label={labels.close}><X size={18} /> <span>{labels.close}</span></button>
         ) : null}
       </div>
 
@@ -2496,60 +2637,21 @@ function PortfolioReel({ companies, lang, initialIndex = 0, onExit, onExpand, fu
   );
 }
 
-// Scroll-driven 3D reel. Swipe left/right through the cylinder; scroll down and
-// the whole window GROWS (via transform: scale — compositor only, no per-frame
-// layout) until the centred site fills the screen. The one width→100% fill is a
-// single toggle at the end, so there is no stutter.
+// Stable 3D reel. Horizontal drag rotates the cylinder; entering and leaving a
+// site is an explicit button action so ordinary page scrolling never hijacks
+// the visitor or traps the document in a scroll-grown state.
 function PortfolioImmersivePreview({ companies, lang, id, onExpand }) {
   const labels = REEL_COPY[lang];
-  const trackRef = useRef(null);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return undefined;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      track.style.setProperty("--p", "1");
-      track.dataset.full = "true";
-      return undefined;
-    }
-    let frame = 0;
-    const compute = () => {
-      frame = 0;
-      const rect = track.getBoundingClientRect();
-      const travel = Math.max(1, rect.height - window.innerHeight);
-      const raw = Math.max(0, Math.min(1, -rect.top / travel));
-      const grow = Math.min(1, raw / 0.72);
-      const p = grow * grow * (3 - 2 * grow);
-      track.style.setProperty("--p", p.toFixed(4));
-      if (p > 0.9) track.dataset.full = "true";
-      else delete track.dataset.full;
-    };
-    const onScroll = () => { if (!frame) frame = window.requestAnimationFrame(compute); };
-    compute();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, []);
 
   return (
-    <section className="pf-imm pf-imm--grow" id={id} ref={trackRef} aria-label={labels.label}>
-      <div className="pf-imm__sticky">
-        <header className="pf-imm__title">
-          <span className="pf-imm__eyebrow">{labels.eyebrow}</span>
-          <h2>{labels.title}</h2>
-          <p>{labels.text}</p>
-        </header>
-        <div className="pf-imm__window">
-          <PortfolioReel companies={companies} lang={lang} onExpand={onExpand} />
-        </div>
-        <div className="pf-imm__cue" aria-hidden="true">
-          <span>{lang === "tr" ? "Siteyi büyütmek için kaydırın" : "Scroll to expand the site"}</span>
-          <ChevronDown size={15} />
-        </div>
+    <section className="pf-imm pf-imm--stable pf-imm--button" id={id} aria-label={labels.label}>
+      <header className="pf-imm__title">
+        <span className="pf-imm__eyebrow">{labels.eyebrow}</span>
+        <h2>{labels.title}</h2>
+        <p>{labels.text}</p>
+      </header>
+      <div className="pf-imm__window">
+        <PortfolioReel companies={companies} lang={lang} onExpand={onExpand} />
       </div>
     </section>
   );
@@ -2573,10 +2675,10 @@ function PortfolioOverlay({ companies, lang, initialIndex, onClose }) {
 
 // Premium, calm brand wall: logos flow left→right in one continuous marquee,
 // pausing on hover. Each card links to the brand's official site when it has one.
-function BrandMarquee({ companies, lang }) {
+function BrandMarquee({ companies, lang, variant, label }) {
   const items = [...companies, ...companies];
   return (
-    <div className="brand-marquee" aria-label={COPY[lang].portfolio.eyebrow}>
+    <div className={`brand-marquee brand-marquee--${variant}`} aria-label={label}>
       <div className="brand-marquee__track">
         {items.map((company, index) => {
           const branding = company.branding;
@@ -2640,7 +2742,22 @@ function Portfolio({ lang, withImmersive = false }) {
         <div className="shell">
           <SectionHeading eyebrow={copy.eyebrow} title={copy.title} text={copy.text} />
         </div>
-        <BrandMarquee companies={companies} lang={lang} />
+        <div className="portfolio-rails">
+          <div className="portfolio-rail portfolio-rail--companies">
+            <div className="shell portfolio-rail__head">
+              <strong>{copy.companiesLabel}</strong>
+              <span>{copy.companiesText}</span>
+            </div>
+            <BrandMarquee companies={GROUP_PORTFOLIO_COMPANIES} lang={lang} variant="companies" label={copy.companiesLabel} />
+          </div>
+          <div className="portfolio-rail portfolio-rail--brands">
+            <div className="shell portfolio-rail__head">
+              <strong>{copy.brandsLabel}</strong>
+              <span>{copy.brandsText}</span>
+            </div>
+            <BrandMarquee companies={BRAND_PORTFOLIO_COMPANIES} lang={lang} variant="brands" label={copy.brandsLabel} />
+          </div>
+        </div>
         <div className="shell">
           <p className="portfolio-note">{copy.note}</p>
         </div>
@@ -2915,7 +3032,7 @@ function ReachVisualization({ profile, lang }) {
           <div className="dealer-tooltip" data-below={tooltipBelow ? "true" : undefined} style={{ left: `${dealerLeft}%`, top: `${dealerTop}%` }} role="status">
             <strong>{selectedDealer.name}</strong>
             <span><MapPin size={12} /> {selectedDealer.city}</span>
-            <small>{lang === "tr" ? "Demo bayi verisi" : "Demo dealer data"}</small>
+            <small>{lang === "tr" ? "Temsilî ağ noktası" : "Representative network point"}</small>
           </div>
         ) : null}
         <span className="market-reach__map-label">{copy.mapLabel}</span>
@@ -2923,7 +3040,7 @@ function ReachVisualization({ profile, lang }) {
 
       {profile.mode === "dealers" && selectedDealer ? (
         <div className="dealer-detail" aria-live="polite">
-          <span>{lang === "tr" ? "SEÇİLİ DEMO BAYİ" : "SELECTED DEMO DEALER"}</span>
+          <span>{lang === "tr" ? "SEÇİLİ BAYİ NOKTASI" : "SELECTED DEALER POINT"}</span>
           <strong>{selectedDealer.name}</strong>
           <small><MapPin size={13} /> {selectedDealer.city}</small>
         </div>
@@ -2967,7 +3084,7 @@ function MarketReach({ lang, selectedId, onSelect }) {
           >
             {item.logo
               ? <img className="reach-switcher__logo" src={item.logo} alt={item.name} loading="lazy" decoding="async" />
-              : <><i /> {item.name}</>}
+              : <><i /> {item.label?.[lang] || item.name}</>}
           </button>
         ))}
       </div>
@@ -3013,6 +3130,7 @@ function HomePage({ navigate, lang, services }) {
           </div>
         </section>
         <EcosystemStrip lang={lang} />
+        <FlagshipOperations lang={lang} />
         <MarketReach lang={lang} selectedId={selectedReach} onSelect={setSelectedReach} />
         <Portfolio lang={lang} withImmersive />
         <section className="section home-services">

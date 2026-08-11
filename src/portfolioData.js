@@ -143,7 +143,7 @@ const SPEEDWA = {
       heroTitle: "SpeedWA dijital vitrini",
       heroText:
         "Powerbank’ten hoparlöre, hızlı şarjdan akıllı aksesuara kadar SpeedWA ürün dünyasının DRK premium diliyle yeniden yorumlanmış ön izlemesi.",
-      scrollHint: "Deneyime girmek için kaydırın",
+      scrollHint: "Deneyime düğmeyle girin",
       featuredLabel: "ÖNE ÇIKAN ÜRÜN",
       productsLabel: "Öne Çıkan Ürünler",
       productsHint: "SpeedWA kataloğundan seçili teknoloji ürünleri",
@@ -189,7 +189,7 @@ const SPEEDWA = {
       heroTitle: "The SpeedWA digital showroom",
       heroText:
         "A preview of SpeedWA’s product world — from power banks and speakers to fast charging and smart accessories — reinterpreted in the DRK premium design language.",
-      scrollHint: "Scroll to enter the experience",
+      scrollHint: "Use the button to enter the experience",
       featuredLabel: "FEATURED PRODUCT",
       productsLabel: "Featured Products",
       productsHint: "Selected technology products from the SpeedWA catalogue",
@@ -416,7 +416,7 @@ const SHARGE = {
       heroTitle: "Sharge dijital vitrini",
       heroText:
         "Şeffaf tasarımlı GaN powerbank'lerden hızlı şarj adaptörlerine ve taşınabilir SSD çözümlerine kadar Sharge ürün dünyasının DRK premium diliyle yeniden yorumlanmış ön izlemesi.",
-      scrollHint: "Deneyime girmek için kaydırın",
+      scrollHint: "Deneyime düğmeyle girin",
       featuredLabel: "ÖNE ÇIKAN ÜRÜN",
       productsLabel: "Öne Çıkan Ürünler",
       productsHint: "Sharge Türkiye kataloğundan seçili güç ve şarj ürünleri",
@@ -461,7 +461,7 @@ const SHARGE = {
       heroTitle: "The Sharge digital showroom",
       heroText:
         "A preview of Sharge's product world — from transparent GaN power banks and fast chargers to portable SSD solutions — reinterpreted in the DRK premium design language.",
-      scrollHint: "Scroll to enter the experience",
+      scrollHint: "Use the button to enter the experience",
       featuredLabel: "FEATURED PRODUCT",
       productsLabel: "Featured Products",
       productsHint: "Selected power and charging products from the Sharge Türkiye catalogue",
@@ -520,7 +520,7 @@ const SHARGE = {
 };
 
 SPEEDWA.kind = "brand";
-SPEEDWA.reachId = "speedwa";
+SPEEDWA.reachId = "dealers";
 
 function ecosystemEntry({ id, name, wordmark = "text", website = DORUK_GROUP_URL, tr, en, kind = "group", reachId = "drk", branding = BRANDING.doruk }) {
   return {
@@ -586,19 +586,29 @@ const ROBOROCK = ecosystemEntry({
   en: "Technical-service and after-sales experience in the smart-home electronics category.",
 });
 
+const XIAOMI = ecosystemEntry({
+  id: "xiaomi",
+  name: "Xiaomi",
+  kind: "brand",
+  website: "https://www.mi.com/tr/",
+  branding: BRANDING.xiaomi,
+  tr: "Akıllı telefon, giyilebilir teknoloji ve bağlantılı yaşam ürünlerinde güçlü kategori markası.",
+  en: "A strong category brand across smartphones, wearables and connected-living products.",
+});
+
 // Brand-specific profile content shown on the 3D immersive brand panels.
 // Each brand tells its own real story (facts + narrative) instead of the
 // generic placeholder that every panel used to share.
 SAMSUNG.profile = {
   tr: {
-    facts: ["Pazaryeri satış operasyonu", "Online kanal & mağaza yönetimi", "Sipariş, kargo ve iade süreçleri"],
-    story: "DRK Aksesuar, Samsung Türkiye'nin pazaryerlerindeki satışını yönetiyor ve sağlıyor.",
-    note: "Pazaryeri mağazalarında ürün listeleme, fiyatlama, sipariş yönetimi ve satış sonrası süreçler uçtan uca DRK Aksesuar tarafından işletiliyor.",
+    facts: ["Samsung pazaryeri operasyonu", "shop.samsung.com · 2017–2025", "Samsung Otel TV · 2025–günümüz"],
+    story: "Samsung Türkiye için üç ayrı ticari operasyon dönemi ve kanal uzmanlığı.",
+    note: "DRK Aksesuar; pazaryeri satış operasyonlarını yürütür, 2017–2025 döneminde shop.samsung.com Türkiye satış operasyonu ile Eskisini Getir Yenisini Götür gibi kampanyaları yönetmiş, 2025'ten bu yana Samsung Otel TV işini üstlenmiştir.",
   },
   en: {
-    facts: ["Marketplace sales operation", "Online channel & store management", "Orders, shipping & returns"],
-    story: "DRK Aksesuar manages and powers Samsung Türkiye's marketplace sales.",
-    note: "Product listing, pricing, order management and after-sales across marketplace stores are operated end-to-end by DRK Aksesuar.",
+    facts: ["Samsung marketplace operations", "shop.samsung.com · 2017–2025", "Samsung Hotel TV · 2025–present"],
+    story: "Three distinct commercial operations and deep channel expertise for Samsung Türkiye.",
+    note: "DRK Aksesuar runs marketplace sales, managed shop.samsung.com Türkiye sales and campaigns such as trade-in programmes from 2017 to 2025, and has led the Samsung Hotel TV business since 2025.",
   },
 };
 
@@ -676,6 +686,19 @@ ROBOROCK.profile = {
     facts: ["Smart-home robots", "Authorised technical service", "After-sales experience"],
     story: "We provide technical service and after-sales experience for Roborock smart-home robots.",
     note: "Authorised technical service and after-sales customer experience for Roborock products are delivered through group operations.",
+  },
+};
+
+XIAOMI.profile = {
+  tr: {
+    facts: ["Akıllı telefon ekosistemi", "Giyilebilir teknoloji", "Bağlantılı yaşam ürünleri"],
+    story: "Xiaomi'nin geniş teknoloji ekosistemi marka ortaklıkları alanımızda yer alıyor.",
+    note: "Akıllı telefon, aksesuar ve bağlantılı ürün kategorileri için Türkiye kanal dinamiklerine uygun ticari modeller geliştiriyoruz.",
+  },
+  en: {
+    facts: ["Smartphone ecosystem", "Wearable technology", "Connected-living products"],
+    story: "Xiaomi's broad technology ecosystem sits within our brand-partnership landscape.",
+    note: "We build commercial models suited to Türkiye's channel dynamics across smartphones, accessories and connected products.",
   },
 };
 
@@ -763,11 +786,12 @@ const GROUP_COMPANIES = [
 export const PORTFOLIO_COMPANIES = [
   SAMSUNG,
   SHARGE,
-  SPEEDWA,
   AYANEO,
   INSE,
   TURKCELL,
   ROBOROCK,
+  XIAOMI,
+  SPEEDWA,
   ...GROUP_COMPANIES,
 ];
 
@@ -809,23 +833,23 @@ export const REACH_PROFILES = [
     copy: {
       tr: {
         eyebrow: "SAMSUNG · ONLINE SATIŞ OPERASYONU",
-        title: "Resmi online kanal için ulusal operasyon gücü.",
-        text: "Ürün, sipariş, stok ve kanal süreçlerini Türkiye genelinde tutarlı bir ticari ritimde birleştiriyoruz.",
-        mapLabel: "TÜRKİYE ONLINE SATIŞ AĞI",
-        note: "Doruk Grup kurumsal tarihçesine göre DRK Aksesuar, Samsung Türkiye online satış operasyonuna 2016'da başladı.",
+        title: "Samsung Türkiye için çok kanallı operasyon gücü.",
+        text: "Pazaryerlerinden resmi online mağazaya, kampanya yönetiminden Otel TV kanalına uzanan operasyon deneyimini tek ticari disiplinde birleştiriyoruz.",
+        mapLabel: "SAMSUNG TÜRKİYE OPERASYON AĞI",
+        note: "DRK Aksesuar; Samsung pazaryeri operasyonlarını yürütür, 2017–2025 döneminde resmi online satış ve kampanya süreçlerini yönetmiş, 2025'ten bu yana Otel TV işini üstlenmiştir.",
       },
       en: {
         eyebrow: "SAMSUNG · ONLINE SALES OPERATIONS",
-        title: "Nationwide operating strength for the official online channel.",
-        text: "We connect product, orders, inventory and channels in a consistent commercial rhythm across Türkiye.",
-        mapLabel: "TÜRKİYE ONLINE SALES NETWORK",
-        note: "According to Doruk Group's corporate history, DRK Aksesuar began Samsung Türkiye online sales operations in 2016.",
+        title: "Multi-channel operating strength for Samsung Türkiye.",
+        text: "We connect expertise from marketplaces and the official online store to campaign management and the Hotel TV channel within one commercial discipline.",
+        mapLabel: "SAMSUNG TÜRKİYE OPERATIONS NETWORK",
+        note: "DRK Aksesuar runs Samsung marketplace operations, managed official online sales and campaigns from 2017 to 2025, and has led the Hotel TV business since 2025.",
       },
     },
     metrics: [
-      { n: 2016, suffix: "", label: { tr: "Operasyon başlangıcı", en: "Operations started" } },
-      { n: 81, suffix: "", label: { tr: "İlde teslimat erişimi", en: "Provinces reached" } },
-      { n: 1, suffix: "", label: { tr: "Resmi online mağaza", en: "Official online store" } },
+      { n: 2017, suffix: "–2025", label: { tr: "Samsung Shop operasyonu", en: "Samsung Shop operations" } },
+      { n: 2025, suffix: "+", label: { tr: "Otel TV operasyonu", en: "Hotel TV operations" } },
+      { n: 7, suffix: "+", label: { tr: "Aktif pazaryeri", en: "Active marketplaces" } },
       { n: 360, suffix: "°", label: { tr: "Kanal operasyonu", en: "Channel operations" } },
     ],
   },
@@ -858,20 +882,21 @@ export const REACH_PROFILES = [
     ],
   },
   {
-    id: "speedwa",
-    name: "SpeedWA",
+    id: "dealers",
+    name: "Bayi Ağımız",
+    label: { tr: "Bayi Ağımız", en: "Dealer Network" },
     mode: "dealers",
-    accent: "#ff7a1a",
+    accent: "#08ad00",
     copy: {
       tr: {
-        eyebrow: "SPEEDWA · TÜRKİYE BAYİ AĞI",
+        eyebrow: "DRK · TÜRKİYE BAYİ AĞI",
         title: "Bayi gücümüz Türkiye'nin dört bir yanında.",
         text: "Markanızı 81 ile uzanan geniş bayi ve satış noktası ağımızla buluşturuyoruz; ürünü doğru şehirde, doğru noktada konumlandırıp satıştan lojistiğe kadar uçtan uca yönetiyoruz.",
         mapLabel: "TÜRKİYE GENELİNDE BAYİ AĞI",
         note: "Harita, bayi ve satış noktası yoğunluğunu temsili olarak gösterir.",
       },
       en: {
-        eyebrow: "SPEEDWA · TÜRKİYE DEALER NETWORK",
+        eyebrow: "DRK · TÜRKİYE DEALER NETWORK",
         title: "Our dealer strength reaches every corner of Türkiye.",
         text: "We place your brand into a nationwide network of dealers and sales points across all 81 provinces — positioning the product in the right city and the right shelf, and running it end to end from sales to logistics.",
         mapLabel: "DEALER NETWORK ACROSS TÜRKİYE",
@@ -882,7 +907,7 @@ export const REACH_PROFILES = [
       { n: 81, suffix: "", label: { tr: "İl'de bayi erişimi", en: "Provinces reached" } },
       { n: 500, suffix: "+", label: { tr: "Bayi & satış noktası", en: "Dealers & sales points" } },
       { n: 7, suffix: "", label: { tr: "Bölge dağıtım merkezi", en: "Regional distribution hubs" } },
-      { n: 6, suffix: "", label: { tr: "Ürün kategorisi", en: "Product categories" } },
+      { n: 6, suffix: "+", label: { tr: "Kategori erişimi", en: "Category coverage" } },
     ],
   },
 ];
@@ -914,7 +939,7 @@ export const SPEEDWA_DEALERS = Array.from({ length: DEALER_POINT_COUNT }, (_, in
   const angle = index * 2.3999632297;
   return {
     id: `demo-dealer-${String(index + 1).padStart(3, "0")}`,
-    name: `SpeedWA ${city} Demo Bayi ${String(index + 1).padStart(3, "0")}`,
+    name: `DRK ${city} Bayi Noktası ${String(index + 1).padStart(3, "0")}`,
     city,
     x: Math.round((baseX + Math.cos(angle) * ring) * 10) / 10,
     y: Math.round((baseY + Math.sin(angle) * ring * 0.6) * 10) / 10,
