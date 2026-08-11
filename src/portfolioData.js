@@ -519,7 +519,7 @@ const SHARGE = {
   products: SHARGE_PRODUCTS,
 };
 
-SPEEDWA.kind = "brand";
+SPEEDWA.kind = "group";
 SPEEDWA.reachId = "dealers";
 
 function ecosystemEntry({ id, name, wordmark = "text", website = DORUK_GROUP_URL, tr, en, kind = "group", reachId = "drk", branding = BRANDING.doruk }) {
