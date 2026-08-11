@@ -2662,10 +2662,11 @@ function PortfolioOverlay({ companies, lang, initialIndex, onClose }) {
   );
 }
 
-// Premium, calm brand wall: logos flow left→right in one continuous marquee,
-// pausing on hover. Each card links to the brand's official site when it has one.
+// Premium, calm portfolio wall: company cards and the separate logo-only brand
+// rail flow continuously, pause on hover and link to verified official sites.
 function BrandMarquee({ companies, lang, variant, label }) {
   const items = [...companies, ...companies];
+  const logoOnly = variant === "brands";
   return (
     <div className={`brand-marquee brand-marquee--${variant}`} aria-label={label}>
       <div className="brand-marquee__track">
@@ -2677,14 +2678,16 @@ function BrandMarquee({ companies, lang, variant, label }) {
               <span className="brand-marquee__logo">
                 <BrandWordmark company={company} wordmark={company.wordmark} name={company.name} />
               </span>
-              <span className="brand-marquee__meta">
-                {company.id === "samsung"
-                  ? <><ShieldCheck size={12} /> {lang === "tr" ? "Yönettiğimiz operasyon" : "Operation we run"}</>
-                  : company.immersive
-                    ? <><i className="pf-live-dot" /> {lang === "tr" ? "Canlı ön izleme" : "Live preview"}</>
-                    : null}
-                {company.website ? <ArrowUpRight size={13} /> : null}
-              </span>
+              {logoOnly ? null : (
+                <span className="brand-marquee__meta">
+                  {company.id === "samsung"
+                    ? <><ShieldCheck size={12} /> {lang === "tr" ? "Yönettiğimiz operasyon" : "Operation we run"}</>
+                    : company.immersive
+                      ? <><i className="pf-live-dot" /> {lang === "tr" ? "Canlı ön izleme" : "Live preview"}</>
+                      : null}
+                  {company.website ? <ArrowUpRight size={13} /> : null}
+                </span>
+              )}
             </>
           );
           const style = {
@@ -2693,8 +2696,11 @@ function BrandMarquee({ companies, lang, variant, label }) {
             "--brand-accent": branding?.accent || "#252a52",
           };
           const shared = {
-            className: `brand-marquee__card ${company.immersive ? "is-live" : ""} ${company.id === "samsung" ? "is-flagship" : ""}`,
+            className: logoOnly
+              ? "brand-marquee__logo-link"
+              : `brand-marquee__card ${company.immersive ? "is-live" : ""} ${company.id === "samsung" ? "is-flagship" : ""}`,
             style,
+            "data-brand": company.id,
             "aria-hidden": duplicate ? "true" : undefined,
             tabIndex: duplicate ? -1 : undefined,
           };

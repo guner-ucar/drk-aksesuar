@@ -4376,14 +4376,93 @@ svg {
 .brand-marquee__card.is-flagship .brand-marquee__meta { color: var(--brand-accent); }
 .brand-marquee__card.is-flagship .brand-marquee__meta svg:first-child { opacity: 1; }
 
-.brand-marquee--brands .brand-marquee__track { animation-duration: 42s; animation-direction: reverse; gap: 12px; }
-.brand-marquee--brands .brand-marquee__card { width: 196px; height: 108px; justify-content: center; padding: 16px 19px; border-radius: 15px; box-shadow: 0 12px 34px rgba(6,10,30,.2); }
-.brand-marquee--brands .brand-marquee__logo { min-height: 44px; justify-content: center; }
-.brand-marquee--brands .brand-marquee__logo .brand-identity { justify-content: center; }
-.brand-marquee--brands .brand-marquee__logo .brand-identity__image { height: 30px; max-width: 142px; object-position: center; }
-.brand-marquee--brands .brand-marquee__logo .brand-identity > strong { font-size: 19px; text-align: center; }
-.brand-marquee--brands .brand-marquee__logo .pf-wordmark { font-size: 22px; }
-.brand-marquee--brands .brand-marquee__meta { display: none; }
+.brand-marquee--brands {
+  margin-top: 18px;
+  padding: 13px 0;
+  border-block: 1px solid rgba(255, 255, 255, .12);
+  background: linear-gradient(90deg, rgba(238, 240, 245, .94), rgba(255, 255, 255, .98), rgba(238, 240, 245, .94));
+  box-shadow: inset 0 1px rgba(255, 255, 255, .55), 0 18px 42px rgba(7, 10, 28, .12);
+}
+
+.brand-marquee--brands .brand-marquee__track {
+  align-items: center;
+  gap: clamp(38px, 5vw, 74px);
+  padding-block: 3px;
+  animation-duration: 42s;
+  animation-direction: reverse;
+}
+
+.brand-marquee__logo-link {
+  --logo-scale: 1;
+  flex: 0 0 clamp(138px, 14vw, 188px);
+  width: clamp(138px, 14vw, 188px);
+  height: 64px;
+  display: grid;
+  place-items: center;
+  padding: 8px 10px;
+  overflow: hidden;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: transform 220ms ease, background 220ms ease;
+}
+
+.brand-marquee__logo-link[data-brand="ayaneo"] { --logo-scale: 1.08; }
+.brand-marquee__logo-link[data-brand="turkcell"] { --logo-scale: 1.9; }
+.brand-marquee__logo-link[data-brand="roborock"] { --logo-scale: 1.48; }
+.brand-marquee__logo-link[data-brand="xiaomi"] { --logo-scale: .84; }
+
+.brand-marquee__logo-link:hover { transform: translateY(-2px); }
+.brand-marquee__logo-link:focus-visible {
+  outline: 1px solid rgba(57, 64, 82, .38);
+  outline-offset: 2px;
+  background: rgba(255, 255, 255, .46);
+}
+
+.brand-marquee--brands .brand-marquee__logo {
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+  justify-content: center;
+}
+
+.brand-marquee--brands .brand-marquee__logo .brand-identity {
+  height: 100%;
+  justify-content: center;
+}
+
+.brand-marquee--brands .brand-marquee__logo .brand-identity__image {
+  width: min(148px, 100%);
+  height: 38px;
+  max-width: 100%;
+  object-position: center;
+  filter: grayscale(1) saturate(0) contrast(.86);
+  mix-blend-mode: multiply;
+  opacity: .68;
+  transform: scale(var(--logo-scale));
+  transition: opacity 220ms ease;
+}
+
+.brand-marquee--brands .brand-marquee__logo-link[data-brand="roborock"] .brand-identity__image {
+  filter: grayscale(1) saturate(0);
+  mix-blend-mode: darken;
+}
+
+.brand-marquee--brands .brand-marquee__logo-link:hover .brand-identity__image,
+.brand-marquee--brands .brand-marquee__logo-link:focus-visible .brand-identity__image {
+  opacity: .9;
+}
+
+.brand-marquee--brands .brand-marquee__logo .brand-identity > strong {
+  color: #727987;
+  font-size: 18px;
+  text-align: center;
+}
+
+.brand-marquee--brands .brand-marquee__logo .pf-wordmark {
+  color: #727987;
+  font-size: 22px;
+  filter: grayscale(1);
+}
 
 @media (max-width: 700px) {
   .portfolio-rails { margin-top: 30px; }
@@ -4391,7 +4470,10 @@ svg {
   .brand-marquee { margin-top: 18px; }
   .brand-marquee__card { width: 220px; height: 132px; padding: 18px 20px; }
   .brand-marquee__track { animation-duration: 40s; }
-  .brand-marquee--brands .brand-marquee__card { width: 166px; height: 94px; padding: 14px 16px; }
+  .brand-marquee--brands { padding-block: 9px; }
+  .brand-marquee--brands .brand-marquee__track { gap: 28px; }
+  .brand-marquee__logo-link { flex-basis: 132px; width: 132px; height: 56px; padding: 7px 8px; }
+  .brand-marquee--brands .brand-marquee__logo .brand-identity__image { width: min(124px, 100%); height: 32px; }
 }
 
 /* --- Card grid ---------------------------------------------------------- */
