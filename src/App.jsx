@@ -58,6 +58,28 @@ const PORTFOLIO_BY_NAME = new Map(PORTFOLIO_COMPANIES.map((company) => [company.
 const GROUP_PORTFOLIO_COMPANIES = PORTFOLIO_COMPANIES.filter((company) => company.kind === "group");
 const BRAND_PORTFOLIO_COMPANIES = PORTFOLIO_COMPANIES.filter((company) => company.kind === "brand");
 const FLAGSHIP_OPERATION_ICONS = [ShoppingBag, Globe2, Store, Zap];
+const HERO_ACCENT = {
+  tr: {
+    words: [
+      { text: "güçlü", tone: "strong" },
+      { text: "görünür", tone: "visible" },
+      { text: "kalıcı", tone: "lasting" },
+      { text: "öncü", tone: "pioneer" },
+      { text: "değerli", tone: "valuable" },
+    ],
+    suffix: "hale getiririz.",
+  },
+  en: {
+    words: [
+      { text: "powerful", tone: "strong" },
+      { text: "visible", tone: "visible" },
+      { text: "lasting", tone: "lasting" },
+      { text: "leading", tone: "pioneer" },
+      { text: "valuable", tone: "valuable" },
+    ],
+    suffix: "in-market.",
+  },
+};
 
 const FLAGSHIP_DESTINATIONS = {
   "samsung-marketplace": {
@@ -3202,6 +3224,34 @@ function MarketReach({ lang, selectedId, onSelect }) {
   );
 }
 
+function HeroAccent({ lang }) {
+  const accent = HERO_ACCENT[lang];
+  const wordTexts = accent.words.map((word) => word.text);
+  const accessibleText = `${wordTexts.slice(0, -1).join(", ")} ${lang === "tr" ? "ve" : "and"} ${wordTexts.at(-1)} ${accent.suffix}`;
+
+  return (
+    <>
+      <span className="hero-accent" aria-hidden="true">
+        <i className="hero-accent__dot" />
+        <span className="hero-accent__word-stage">
+          {accent.words.map((word, index) => (
+            <b
+              className="hero-accent__word"
+              data-tone={word.tone}
+              key={word.text}
+              style={{ "--word-index": index }}
+            >
+              {word.text}
+            </b>
+          ))}
+        </span>
+        <span className="hero-accent__suffix">{accent.suffix}</span>
+      </span>
+      <span className="sr-only">{accessibleText}</span>
+    </>
+  );
+}
+
 function HomePage({ navigate, lang, services }) {
   const copy = COPY[lang];
   const [selectedReach, setSelectedReach] = useState("drk");
@@ -3211,7 +3261,7 @@ function HomePage({ navigate, lang, services }) {
         <section className="home-hero">
           <div className="shell home-hero__inner">
             <CharacterRow services={services} navigate={navigate} />
-            <h1>{copy.hero.titleTop} <span><i /> {copy.hero.titleAccent}</span></h1>
+            <h1>{copy.hero.titleTop} <HeroAccent lang={lang} /></h1>
             <p>{copy.hero.text}</p>
             <div className="hero-actions">
               <PageLink to="/iletisim" navigate={navigate} className="button button--purple">
