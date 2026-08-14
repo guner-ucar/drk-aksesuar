@@ -11,6 +11,8 @@ const FIELD_LIMITS = {
   company: 160,
   email: 254,
   phone: 60,
+  country: 120,
+  employees: 80,
   area: 180,
   goal: 4000,
 };
@@ -38,6 +40,8 @@ function parseRequest(body) {
     company: readField(data, "company", true),
     email: readField(data, "email", true).toLowerCase(),
     phone: readField(data, "phone"),
+    country: readField(data, "country", true),
+    employees: readField(data, "employees", true),
     area: readField(data, "area", true),
     goal: readField(data, "goal", true),
     website: typeof data.website === "string" ? data.website.trim() : "",
@@ -53,6 +57,8 @@ function buildInternalMessage(applicant) {
     ["Şirket / Marka", applicant.company],
     ["E-posta", applicant.email],
     ["Telefon", applicant.phone || "Belirtilmedi"],
+    ["Ülke", applicant.country],
+    ["Çalışan kapasitesi", applicant.employees],
     ["İlgilenilen alan", applicant.area],
     ["Büyüme hedefi", applicant.goal],
   ];

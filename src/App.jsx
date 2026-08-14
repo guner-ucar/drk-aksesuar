@@ -49,6 +49,7 @@ import {
 import TurkeyMap from "./TurkeyMap";
 import CHINA_MAP from "@svg-maps/china";
 import { TECHNICAL_METHODS, TECHNICAL_NOTE } from "./technicalMethodology";
+import { getCountryOptions } from "./formOptions";
 
 const BRAND_NAME = "DRK Aksesuar";
 const LOGO_PATH = "/brand/drk-aksesuar-logo.png";
@@ -74,6 +75,15 @@ const TECHNICAL_UI = {
     collapse: "Teknik metodolojiyi kapat",
     noteExpand: "Sell-in / sell-out metodolojisini aç",
     evaluatedWith: "Birlikte değerlendirilen sinyaller",
+    loopEyebrow: "KARAR DÖNGÜSÜ",
+    loopTitle: "Veri raporda kalmaz; sorumlu ve aksiyona dönüşür.",
+    loopText: "Her teknik katman aynı dört adımı izler. Böylece ekip yalnızca ne olduğunu değil, neden olduğunu ve sıradaki kararı görür.",
+    loopSteps: [
+      ["Sinyal", "Kanal, ürün ve müşteri verisini birleştir"],
+      ["Hesap", "Sapmayı ortak metriklerle ölç"],
+      ["Karar", "Eşik ve kök nedene göre önceliklendir"],
+      ["Aksiyon", "Sorumlu, tarih ve ticari çıktı ata"],
+    ],
   },
   en: {
     methodology: "Methodology",
@@ -88,6 +98,15 @@ const TECHNICAL_UI = {
     collapse: "Close technical methodology",
     noteExpand: "Open sell-in / sell-out methodology",
     evaluatedWith: "Signals evaluated together",
+    loopEyebrow: "DECISION LOOP",
+    loopTitle: "Data does not stop at reporting; it becomes owned action.",
+    loopText: "Every technical layer follows the same four steps, so teams can see what happened, why it happened and what decision comes next.",
+    loopSteps: [
+      ["Signal", "Unify channel, product and customer data"],
+      ["Calculate", "Measure deviation through shared metrics"],
+      ["Decide", "Prioritise by threshold and root cause"],
+      ["Act", "Assign an owner, date and commercial output"],
+    ],
   },
 };
 const HERO_ACCENT = {
@@ -516,6 +535,11 @@ const COPY = {
         companyPlaceholder: "Marka adı",
         email: "E-posta",
         phone: "Telefon",
+        country: "Ülke",
+        countryPlaceholder: "Ülke seçin",
+        employees: "Çalışan kapasitesi",
+        employeesPlaceholder: "Çalışan sayısı aralığını seçin",
+        employeeOptions: ["1–10 çalışan", "11–50 çalışan", "51–200 çalışan", "201–500 çalışan", "501–1.000 çalışan", "1.000+ çalışan"],
         area: "İlgilendiğiniz alan",
         areaPlaceholder: "Bir alan seçin",
         goal: "Büyüme hedefiniz",
@@ -858,6 +882,11 @@ const COPY = {
         companyPlaceholder: "Brand name",
         email: "Email",
         phone: "Phone",
+        country: "Country",
+        countryPlaceholder: "Select a country",
+        employees: "Employee capacity",
+        employeesPlaceholder: "Select employee range",
+        employeeOptions: ["1–10 employees", "11–50 employees", "51–200 employees", "201–500 employees", "501–1,000 employees", "1,000+ employees"],
         area: "Area of interest",
         areaPlaceholder: "Select an area",
         goal: "Your growth objective",
@@ -3271,7 +3300,7 @@ function HeroAccent({ lang }) {
 
   return (
     <>
-      <span className="hero-accent" aria-hidden="true">
+      <span className={`hero-accent hero-accent--${lang}`} aria-hidden="true">
         <i className="hero-accent__dot" />
         <span className="hero-accent__phrase-stage">
           {accent.words.map((word, index) => (
@@ -3629,8 +3658,30 @@ function TechnicalMethodologyDetail({ layer, lang }) {
   );
 }
 
+function TechnicalOperatingLoop({ lang }) {
+  const ui = TECHNICAL_UI[lang];
+  return (
+    <section className="technical-loop" aria-labelledby={`technical-loop-title-${lang}`}>
+      <div className="technical-loop__intro">
+        <small>{ui.loopEyebrow}</small>
+        <h3 id={`technical-loop-title-${lang}`}>{ui.loopTitle}</h3>
+        <p>{ui.loopText}</p>
+      </div>
+      <ol className="technical-loop__steps">
+        {ui.loopSteps.map(([title, text], index) => (
+          <li key={title}>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <div><strong>{title}</strong><p>{text}</p></div>
+            {index < ui.loopSteps.length - 1 ? <ArrowRight size={18} aria-hidden="true" /> : null}
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
 function TechnicalAccordion({ lang }) {
-  const [openNumber, setOpenNumber] = useState(null);
+  const [openNumber, setOpenNumber] = useState("01");
   const ui = TECHNICAL_UI[lang];
   return (
     <div className="technical-accordion">
@@ -3731,6 +3782,7 @@ function AboutPage({ navigate, lang }) {
         <section className="section about-technical">
           <div className="shell">
             <SectionHeading eyebrow={copy.technicalEyebrow} title={copy.technicalTitle} text={copy.technicalText} />
+            <TechnicalOperatingLoop lang={lang} />
             <TechnicalAccordion lang={lang} />
             <TechnicalSellInNote lang={lang} />
           </div>
@@ -3757,6 +3809,7 @@ function AboutPage({ navigate, lang }) {
 
 function ContactPage({ navigate, lang, services }) {
   const copy = COPY[lang].contactPage;
+  const countryOptions = getCountryOptions(lang);
   const [formStatus, setFormStatus] = useState("idle");
   const [openFaq, setOpenFaq] = useState(0);
 
@@ -3813,6 +3866,20 @@ function ContactPage({ navigate, lang, services }) {
                   <div className="form-row">
                     <label>{copy.fields.email}<input required name="email" autoComplete="email" type="email" placeholder="name@brand.com" /></label>
                     <label>{copy.fields.phone}<input name="phone" autoComplete="tel" type="tel" placeholder="+90 5__ ___ __ __" /></label>
+                  </div>
+                  <div className="form-row">
+                    <label>{copy.fields.country}
+                      <select name="country" required defaultValue="" autoComplete="country-name">
+                        <option disabled value="">{copy.fields.countryPlaceholder}</option>
+                        {countryOptions.map((country) => <option key={country.code} value={country.name}>{country.name}</option>)}
+                      </select>
+                    </label>
+                    <label>{copy.fields.employees}
+                      <select name="employees" required defaultValue="">
+                        <option disabled value="">{copy.fields.employeesPlaceholder}</option>
+                        {copy.fields.employeeOptions.map((option) => <option key={option}>{option}</option>)}
+                      </select>
+                    </label>
                   </div>
                   <label>{copy.fields.area}
                     <select name="area" required defaultValue="">
@@ -3872,15 +3939,11 @@ function NotFoundPage({ navigate, lang }) {
 
 function App() {
   const { path, navigate } = useRouter();
-  const [lang, setLang] = useState(() => {
-    const saved = window.localStorage.getItem("drk-language");
-    return saved === "en" ? "en" : "tr";
-  });
+  const [lang, setLang] = useState("en");
   const services = useMemo(() => buildServices(lang), [lang]);
   const service = services.find((item) => item.path === path);
 
   useEffect(() => {
-    window.localStorage.setItem("drk-language", lang);
     updateSeo(path, lang, services);
   }, [lang, path, services]);
 
