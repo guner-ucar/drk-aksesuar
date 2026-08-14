@@ -63,9 +63,10 @@ const HERO_ACCENT = {
     words: [
       { text: "güçlü", tone: "strong" },
       { text: "görünür", tone: "visible" },
+      { text: "kârlı", tone: "profitable" },
+      { text: "ölçeklenebilir", tone: "scalable" },
+      { text: "rekabetçi", tone: "competitive" },
       { text: "kalıcı", tone: "lasting" },
-      { text: "öncü", tone: "pioneer" },
-      { text: "değerli", tone: "valuable" },
     ],
     suffix: "hale getiririz.",
   },
@@ -73,9 +74,10 @@ const HERO_ACCENT = {
     words: [
       { text: "powerful", tone: "strong" },
       { text: "visible", tone: "visible" },
+      { text: "profitable", tone: "profitable" },
+      { text: "scalable", tone: "scalable" },
+      { text: "competitive", tone: "competitive" },
       { text: "lasting", tone: "lasting" },
-      { text: "leading", tone: "pioneer" },
-      { text: "valuable", tone: "valuable" },
     ],
     suffix: "in-market.",
   },
@@ -3233,19 +3235,18 @@ function HeroAccent({ lang }) {
     <>
       <span className="hero-accent" aria-hidden="true">
         <i className="hero-accent__dot" />
-        <span className="hero-accent__word-stage">
+        <span className="hero-accent__phrase-stage">
           {accent.words.map((word, index) => (
-            <b
-              className="hero-accent__word"
-              data-tone={word.tone}
+            <span
+              className="hero-accent__phrase"
               key={word.text}
               style={{ "--word-index": index }}
             >
-              {word.text}
-            </b>
+              <b className="hero-accent__word" data-tone={word.tone}>{word.text}</b>
+              <span className="hero-accent__suffix">{accent.suffix}</span>
+            </span>
           ))}
         </span>
-        <span className="hero-accent__suffix">{accent.suffix}</span>
       </span>
       <span className="sr-only">{accessibleText}</span>
     </>
