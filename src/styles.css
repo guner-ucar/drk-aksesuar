@@ -3089,14 +3089,33 @@ svg {
   .technical-accordion__trigger { grid-template-columns: 42px minmax(0, 1fr) 32px; gap: 11px; padding: 16px 14px; }
   .technical-accordion__icon { width: 42px; height: 42px; }
   .technical-accordion__trigger > small { display: none; }
+  .technical-accordion__copy { min-width: 0; }
   .technical-accordion__copy > strong { font-size: 19px; }
+  .technical-accordion__copy > strong,
+  .technical-accordion__copy > span { overflow-wrap: anywhere; }
   .technical-accordion__copy > span { font-size: 12px; line-height: 1.55; }
   .technical-detail { gap: 26px; margin: 0 8px 8px; padding: 20px 12px; }
+  .technical-detail > *,
+  .technical-detail__section,
+  .technical-formulas,
+  .technical-flow,
+  .technical-decisions,
+  .technical-evidence,
+  .technical-detail__insights,
+  .technical-output { min-width: 0; max-width: 100%; }
   .technical-detail__purpose { grid-template-columns: 1fr; gap: 9px; padding: 18px; }
   .technical-detail__purpose p { font-size: 14px; }
   .technical-detail__heading { grid-template-columns: 36px minmax(0, 1fr); gap: 10px; }
   .technical-detail h4 { font-size: 19px; }
-  .technical-formulas { grid-template-columns: 1fr; }
+  .technical-formulas { grid-template-columns: minmax(0, 1fr); }
+  .technical-formulas article,
+  .technical-formulas code,
+  .technical-decisions article,
+  .technical-decisions code,
+  .technical-decisions strong,
+  .technical-output code { min-width: 0; overflow-wrap: anywhere; white-space: normal; }
+  .technical-flow { overflow: hidden; }
+  .technical-flow > div { width: 100%; max-width: 100%; padding-bottom: 4px; overscroll-behavior-x: contain; }
   .technical-detail__insights { grid-template-columns: 1fr; }
   .technical-decisions__head { display: none; }
   .technical-decisions article { grid-template-columns: 1fr; gap: 6px; }
@@ -3104,6 +3123,7 @@ svg {
   .technical-classes { grid-template-columns: 1fr; }
   .technical-output { grid-template-columns: 1fr; gap: 7px; }
   .technical-evidence summary { padding: 15px; }
+  .technical-evidence summary > span { min-width: 0; }
   .technical-evidence__body { padding: 3px 15px 18px; }
   .about-technical__note summary { grid-template-columns: 46px 1fr 26px; gap: 11px; padding: 17px 14px; }
   .about-technical__note-icon { width: 46px; height: 46px; }
