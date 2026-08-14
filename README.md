@@ -50,6 +50,10 @@ npm start
 
 The Node.js process should be managed by the server platform or a process manager such as systemd or PM2. The domain should proxy traffic to the configured application port. Both page routes and `/api/contact` must reach the Node.js process.
 
+### Vercel
+
+Vercel builds the Vite frontend and exposes the contact endpoint through `api/contact.js`. Add the mail settings from `.env.example` to the Vercel project's Production environment before deploying. The same contact service is shared by the Vercel function and the standalone Node.js server.
+
 Example Nginx location:
 
 ```nginx

@@ -26,8 +26,8 @@ const REQUIRED_MAIL_SETTINGS = [
 ];
 
 export class ContactRequestError extends Error {
-  constructor(statusCode, message) {
-    super(message);
+  constructor(statusCode, message, options) {
+    super(message, options);
     this.name = "ContactRequestError";
     this.statusCode = statusCode;
   }
@@ -165,8 +165,8 @@ export async function submitContactRequest(
       transporter.sendMail({ from, to: recipients, replyTo: applicant.email, ...buildInternalMessage(applicant) }),
       transporter.sendMail({ from, to: applicant.email, ...buildConfirmationMessage(applicant) }),
     ]);
-  } catch {
-    throw new ContactRequestError(502, "Mail delivery failed");
+  } catch (error) {
+    throw new ContactRequestError(502, "Mail delivery failed", { cause: error });
   }
 
   return { accepted: true, ignored: false };

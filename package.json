@@ -12,7 +12,7 @@
     "preview": "vite preview",
     "start": "node server/index.js",
     "test": "node --test",
-    "check": "npm test && npm run build && node --check server/index.js && node --check server/contactService.js"
+    "check": "npm test && npm run build && node --check server/index.js && node --check server/contactService.js && node --check api/contact.js"
   },
   "dependencies": {
     "@fontsource/manrope": "^5.2.6",
