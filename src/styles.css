@@ -461,47 +461,11 @@ svg {
 
 .hero-accent__word {
   display: inline-block;
-  font-size: 1em;
-  line-height: 1;
-  letter-spacing: -0.055em;
-}
-
-.hero-accent__word[data-tone="strong"] {
-  font-family: "Manrope", sans-serif;
-  font-weight: 800;
-}
-
-.hero-accent__word[data-tone="visible"] {
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.015em;
-}
-
-.hero-accent__word[data-tone="profitable"] {
   font-family: Georgia, "Times New Roman", serif;
-  font-weight: 700;
-  letter-spacing: -0.035em;
-}
-
-.hero-accent__word[data-tone="scalable"] {
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  font-size: 0.82em;
-  letter-spacing: -0.045em;
-}
-
-.hero-accent__word[data-tone="competitive"] {
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 700;
-  font-size: 0.9em;
-  letter-spacing: 0.005em;
-  text-transform: uppercase;
-}
-
-.hero-accent__word[data-tone="lasting"] {
-  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.93em;
   font-style: italic;
   font-weight: 700;
+  line-height: 1;
   letter-spacing: -0.045em;
 }
 
@@ -535,7 +499,7 @@ svg {
   0%, 14% { width: 7em; }
   16.66%, 30.66% { width: 8.45em; }
   33.33%, 47.33% { width: 6.8em; }
-  50%, 64% { width: 9.35em; }
+  50%, 64% { width: 10.1em; }
   66.66%, 80.66% { width: 9.85em; }
   83.33%, 97.33% { width: 7.2em; }
   100% { width: 7em; }
@@ -3747,15 +3711,7 @@ svg {
   }
 
   .hero-accent__word {
-    font-size: 0.82em;
-  }
-
-  .hero-accent__word[data-tone="scalable"] {
-    font-size: 0.68em;
-  }
-
-  .hero-accent__word[data-tone="competitive"] {
-    font-size: 0.72em;
+    font-size: 0.7em;
   }
 
   .hero-accent__suffix {
