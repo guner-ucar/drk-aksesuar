@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, memo, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -9,7 +9,6 @@ import {
   ChevronDown,
   CircleDot,
   Compass,
-  Database,
   Globe2,
   Handshake,
   Languages,
@@ -48,8 +47,9 @@ import {
 } from "./portfolioData";
 import TurkeyMap from "./TurkeyMap";
 import CHINA_MAP from "@svg-maps/china";
-import { TECHNICAL_METHODS, TECHNICAL_NOTE } from "./technicalMethodology";
 import { getCountryOptions } from "./formOptions";
+
+const TechnicalMethodology = lazy(() => import("./components/about/TechnicalMethodology"));
 
 const BRAND_NAME = "DRK Aksesuar";
 const LOGO_PATH = "/brand/drk-aksesuar-logo.png";
@@ -60,55 +60,6 @@ const PORTFOLIO_BY_NAME = new Map(PORTFOLIO_COMPANIES.map((company) => [company.
 const GROUP_PORTFOLIO_COMPANIES = PORTFOLIO_COMPANIES.filter((company) => company.kind === "group");
 const BRAND_PORTFOLIO_COMPANIES = PORTFOLIO_COMPANIES.filter((company) => company.kind === "brand");
 const FLAGSHIP_OPERATION_ICONS = [ShoppingBag, Globe2, Store, Zap];
-const TECHNICAL_LAYER_ICONS = [BarChart3, TrendingUp, Boxes, Target, Database];
-const TECHNICAL_UI = {
-  tr: {
-    methodology: "Metodoloji",
-    formulas: "Hesaplama",
-    decisions: "Karar mantığı",
-    sources: "Veri kaynakları",
-    classifications: "Operasyon sınıfları",
-    example: "Operasyon örneği",
-    caveat: "Model notu",
-    output: "Çıktı",
-    expand: "Teknik metodolojiyi aç",
-    collapse: "Teknik metodolojiyi kapat",
-    noteExpand: "Sell-in / sell-out metodolojisini aç",
-    evaluatedWith: "Birlikte değerlendirilen sinyaller",
-    loopEyebrow: "KARAR DÖNGÜSÜ",
-    loopTitle: "Veri raporda kalmaz; sorumlu ve aksiyona dönüşür.",
-    loopText: "Her teknik katman aynı dört adımı izler. Böylece ekip yalnızca ne olduğunu değil, neden olduğunu ve sıradaki kararı görür.",
-    loopSteps: [
-      ["Sinyal", "Kanal, ürün ve müşteri verisini birleştir"],
-      ["Hesap", "Sapmayı ortak metriklerle ölç"],
-      ["Karar", "Eşik ve kök nedene göre önceliklendir"],
-      ["Aksiyon", "Sorumlu, tarih ve ticari çıktı ata"],
-    ],
-  },
-  en: {
-    methodology: "Methodology",
-    formulas: "Calculation",
-    decisions: "Decision logic",
-    sources: "Data sources",
-    classifications: "Operating classes",
-    example: "Operating example",
-    caveat: "Model note",
-    output: "Output",
-    expand: "Open technical methodology",
-    collapse: "Close technical methodology",
-    noteExpand: "Open sell-in / sell-out methodology",
-    evaluatedWith: "Signals evaluated together",
-    loopEyebrow: "DECISION LOOP",
-    loopTitle: "Data does not stop at reporting; it becomes owned action.",
-    loopText: "Every technical layer follows the same four steps, so teams can see what happened, why it happened and what decision comes next.",
-    loopSteps: [
-      ["Signal", "Unify channel, product and customer data"],
-      ["Calculate", "Measure deviation through shared metrics"],
-      ["Decide", "Prioritise by threshold and root cause"],
-      ["Act", "Assign an owner, date and commercial output"],
-    ],
-  },
-};
 const HERO_ACCENT = {
   tr: {
     words: [
@@ -3566,187 +3517,6 @@ function ApproachPage({ navigate, lang }) {
   );
 }
 
-function TechnicalFlow({ title, items }) {
-  return (
-    <div className="technical-flow" role="img" aria-label={`${title}: ${items.join(" → ")}`}>
-      <small>{title}</small>
-      <div>
-        {items.map((item, index) => (
-          <span className="technical-flow__step" key={item}>
-            <b>{item}</b>
-            {index < items.length - 1 ? <ArrowRight size={15} aria-hidden="true" /> : null}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function TechnicalMethodologyDetail({ layer, lang }) {
-  const ui = TECHNICAL_UI[lang];
-  return (
-    <div className="technical-detail">
-      <section className="technical-detail__method">
-        <small>{ui.methodology}</small>
-        <p>{layer.methodology}</p>
-      </section>
-
-      <section className="technical-detail__section">
-        <h4>{ui.formulas}</h4>
-        <div className="technical-formulas">
-          {layer.formulas.map((formula) => (
-            <article key={formula.label}>
-              <small>{formula.label}</small>
-              <code>{formula.expression}</code>
-              <p>{formula.note}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {layer.flow ? <TechnicalFlow title={layer.flowTitle} items={layer.flow} /> : null}
-
-      <div className="technical-detail__columns">
-        <section className="technical-detail__section">
-          <h4>{layer.trackedTitle}</h4>
-          <div className="technical-tags">
-            {layer.tracked.map((signal) => <span key={signal}>{signal}</span>)}
-          </div>
-        </section>
-        <section className="technical-detail__section">
-          <h4>{ui.decisions}</h4>
-          <div className="technical-decisions">
-            {layer.decisions.map((decision) => (
-              <article key={`${decision.condition}-${decision.action}`}>
-                <code>IF {decision.condition}</code>
-                <ArrowRight size={15} aria-hidden="true" />
-                <strong>{decision.action}</strong>
-              </article>
-            ))}
-          </div>
-        </section>
-      </div>
-
-      {layer.classifications ? (
-        <section className="technical-detail__section">
-          <h4>{ui.classifications}</h4>
-          <div className="technical-classes">
-            {layer.classifications.map((item) => (
-              <article key={item.title}><strong>{item.title}</strong><span>{item.text}</span></article>
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      <section className="technical-detail__section">
-        <h4>{ui.sources}</h4>
-        <div className="technical-sources">
-          {layer.sources.map((source) => <span key={source}>{source}</span>)}
-        </div>
-      </section>
-
-      <div className="technical-detail__insights">
-        <article><small>{ui.example}</small><p>{layer.example}</p></article>
-        {layer.caveat ? <article className="technical-detail__caveat"><small>{ui.caveat}</small><p>{layer.caveat}</p></article> : null}
-      </div>
-
-      <div className="technical-output">
-        <span>{ui.output}</span>
-        <code>{layer.output}</code>
-      </div>
-    </div>
-  );
-}
-
-function TechnicalOperatingLoop({ lang }) {
-  const ui = TECHNICAL_UI[lang];
-  return (
-    <section className="technical-loop" aria-labelledby={`technical-loop-title-${lang}`}>
-      <div className="technical-loop__intro">
-        <small>{ui.loopEyebrow}</small>
-        <h3 id={`technical-loop-title-${lang}`}>{ui.loopTitle}</h3>
-        <p>{ui.loopText}</p>
-      </div>
-      <ol className="technical-loop__steps">
-        {ui.loopSteps.map(([title, text], index) => (
-          <li key={title}>
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <div><strong>{title}</strong><p>{text}</p></div>
-            {index < ui.loopSteps.length - 1 ? <ArrowRight size={18} aria-hidden="true" /> : null}
-          </li>
-        ))}
-      </ol>
-    </section>
-  );
-}
-
-function TechnicalAccordion({ lang }) {
-  const [openNumber, setOpenNumber] = useState("01");
-  const ui = TECHNICAL_UI[lang];
-  return (
-    <div className="technical-accordion">
-      {TECHNICAL_METHODS[lang].map((layer, index) => {
-        const Icon = TECHNICAL_LAYER_ICONS[index];
-        const isOpen = openNumber === layer.number;
-        const panelId = `technical-panel-${lang}-${layer.number}`;
-        return (
-          <article className="technical-accordion__item" data-open={isOpen} key={layer.number}>
-            <button
-              type="button"
-              className="technical-accordion__trigger"
-              aria-expanded={isOpen}
-              aria-controls={panelId}
-              onClick={() => setOpenNumber(isOpen ? null : layer.number)}
-            >
-              <span className="technical-accordion__icon"><Icon size={21} /></span>
-              <small>{layer.number}</small>
-              <span className="technical-accordion__copy">
-                <strong>{layer.title}</strong>
-                <span>{layer.summary}</span>
-              </span>
-              <span className="technical-accordion__signals" aria-hidden="true">
-                {layer.signals.map((signal) => <i key={signal}>{signal}</i>)}
-              </span>
-              <span className="technical-accordion__toggle">
-                <span className="sr-only">{isOpen ? ui.collapse : ui.expand}</span>
-                <ChevronDown size={20} aria-hidden="true" />
-              </span>
-            </button>
-            <div className="technical-accordion__body" id={panelId} data-open={isOpen} aria-hidden={!isOpen}>
-              <div><TechnicalMethodologyDetail layer={layer} lang={lang} /></div>
-            </div>
-          </article>
-        );
-      })}
-    </div>
-  );
-}
-
-function TechnicalSellInNote({ lang }) {
-  const note = TECHNICAL_NOTE[lang];
-  const ui = TECHNICAL_UI[lang];
-  return (
-    <details className="about-technical__note">
-      <summary>
-        <span className="about-technical__note-icon"><Database size={22} /></span>
-        <span><strong>{note.title}</strong><small>{ui.noteExpand}</small></span>
-        <ChevronDown size={20} aria-hidden="true" />
-      </summary>
-      <div className="about-technical__note-body">
-        <p>{note.intro}</p>
-        <div className="technical-note__definitions">
-          {note.definitions.map(([title, text]) => <article key={title}><strong>{title}</strong><span>{text}</span></article>)}
-        </div>
-        <code className="technical-note__formula">{note.formula}</code>
-        <div className="technical-note__example">
-          {note.example.map(([label, value]) => <span key={label}><small>{label}</small><strong>{value}</strong></span>)}
-        </div>
-        <div className="technical-note__factors"><small>{ui.evaluatedWith}</small><div>{note.factors.map((factor) => <span key={factor}>{factor}</span>)}</div></div>
-        <p className="technical-note__conclusion">{note.conclusion}</p>
-      </div>
-    </details>
-  );
-}
 
 function AboutPage({ navigate, lang }) {
   const copy = COPY[lang].aboutPage;
@@ -3782,9 +3552,9 @@ function AboutPage({ navigate, lang }) {
         <section className="section about-technical">
           <div className="shell">
             <SectionHeading eyebrow={copy.technicalEyebrow} title={copy.technicalTitle} text={copy.technicalText} />
-            <TechnicalOperatingLoop lang={lang} />
-            <TechnicalAccordion lang={lang} />
-            <TechnicalSellInNote lang={lang} />
+            <Suspense fallback={<div className="technical-methodology-loading" aria-hidden="true" />}>
+              <TechnicalMethodology lang={lang} />
+            </Suspense>
           </div>
         </section>
         <section className="section principles">

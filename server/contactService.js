@@ -17,6 +17,22 @@ const FIELD_LIMITS = {
   goal: 4000,
 };
 
+const REQUIRED_MAIL_SETTINGS = [
+  "MAIL_HOST",
+  "MAIL_PORT",
+  "MAIL_USERNAME",
+  "MAIL_PASSWORD",
+  "MAIL_FROM_ADDRESS",
+];
+
+export class ContactRequestError extends Error {
+  constructor(statusCode, message) {
+    super(message);
+    this.name = "ContactRequestError";
+    this.statusCode = statusCode;
+  }
+}
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -28,13 +44,13 @@ function escapeHtml(value) {
 
 function readField(body, key, required = false) {
   const value = typeof body[key] === "string" ? body[key].trim() : "";
-  if (required && !value) throw new Error(`Missing field: ${key}`);
-  if (value.length > FIELD_LIMITS[key]) throw new Error(`Field too long: ${key}`);
+  if (required && !value) throw new ContactRequestError(400, `Missing field: ${key}`);
+  if (value.length > FIELD_LIMITS[key]) throw new ContactRequestError(400, `Field too long: ${key}`);
   return value;
 }
 
-function parseRequest(body) {
-  const data = typeof body === "string" ? JSON.parse(body) : (body || {});
+export function parseContactRequest(body) {
+  const data = body && typeof body === "object" ? body : {};
   const applicant = {
     name: readField(data, "name", true),
     company: readField(data, "company", true),
@@ -47,7 +63,11 @@ function parseRequest(body) {
     website: typeof data.website === "string" ? data.website.trim() : "",
     lang: data.lang === "en" ? "en" : "tr",
   };
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(applicant.email)) throw new Error("Invalid email");
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(applicant.email)) {
+    throw new ContactRequestError(400, "Invalid email");
+  }
+
   return applicant;
 }
 
@@ -68,6 +88,7 @@ function buildInternalMessage(applicant) {
       <td style="padding:12px 14px;border-bottom:1px solid #e5e7eb;color:#64748b;font:600 12px Arial,sans-serif;vertical-align:top;width:150px">${escapeHtml(label)}</td>
       <td style="padding:12px 14px;border-bottom:1px solid #e5e7eb;color:#171a34;font:14px/1.6 Arial,sans-serif;white-space:pre-wrap">${escapeHtml(value)}</td>
     </tr>`).join("");
+
   return {
     subject: `Yeni marka görüşme talebi · ${applicant.company}`,
     text: `DRK Aksesuar web sitesi üzerinden yeni bir görüşme talebi alındı.\n\n${text}`,
@@ -94,6 +115,7 @@ function buildConfirmationMessage(applicant) {
   const note = isEnglish
     ? "This is an automated confirmation; you do not need to reply."
     : "Bu otomatik bir bilgilendirme mesajıdır; yanıtlamanız gerekmez.";
+
   return {
     subject,
     text: `${greeting}\n\n${body}\n\nDRK Aksesuar\n${note}`,
@@ -110,50 +132,42 @@ function buildConfirmationMessage(applicant) {
   };
 }
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    return res.status(405).json({ ok: false });
+export async function submitContactRequest(
+  payload,
+  { environment = process.env, transportFactory = nodemailer.createTransport } = {},
+) {
+  const applicant = parseContactRequest(payload);
+  if (applicant.website) return { accepted: true, ignored: true };
+
+  if (REQUIRED_MAIL_SETTINGS.some((key) => !environment[key])) {
+    throw new ContactRequestError(503, "Mail service is not configured");
   }
 
-  let applicant;
-  try {
-    applicant = parseRequest(req.body);
-  } catch {
-    return res.status(400).json({ ok: false });
-  }
-
-  if (applicant.website) return res.status(200).json({ ok: true });
-
-  const requiredEnvironment = ["MAIL_HOST", "MAIL_PORT", "MAIL_USERNAME", "MAIL_PASSWORD", "MAIL_FROM_ADDRESS"];
-  if (requiredEnvironment.some((key) => !process.env[key])) return res.status(503).json({ ok: false });
-
-  const recipients = (process.env.CONTACT_RECIPIENTS || DEFAULT_RECIPIENTS.join(","))
+  const recipients = (environment.CONTACT_RECIPIENTS || DEFAULT_RECIPIENTS.join(","))
     .split(",")
     .map((email) => email.trim())
     .filter(Boolean);
   const from = {
-    name: process.env.MAIL_FROM_NAME || "DRK Bildirim",
-    address: process.env.MAIL_FROM_ADDRESS,
+    name: environment.MAIL_FROM_NAME || "DRK Bildirim",
+    address: environment.MAIL_FROM_ADDRESS,
   };
-  const transporter = nodemailer.createTransport({
-    host: process.env.MAIL_HOST,
-    port: Number(process.env.MAIL_PORT),
-    secure: Number(process.env.MAIL_PORT) === 465,
-    requireTLS: String(process.env.MAIL_ENCRYPTION).toLowerCase() === "tls",
-    auth: { user: process.env.MAIL_USERNAME, pass: process.env.MAIL_PASSWORD },
+  const transporter = transportFactory({
+    host: environment.MAIL_HOST,
+    port: Number(environment.MAIL_PORT),
+    secure: Number(environment.MAIL_PORT) === 465,
+    requireTLS: String(environment.MAIL_ENCRYPTION).toLowerCase() === "tls",
+    auth: { user: environment.MAIL_USERNAME, pass: environment.MAIL_PASSWORD },
     tls: { minVersion: "TLSv1.2" },
   });
-  const internal = buildInternalMessage(applicant);
-  const confirmation = buildConfirmationMessage(applicant);
 
   try {
     await Promise.all([
-      transporter.sendMail({ from, to: recipients, replyTo: applicant.email, ...internal }),
-      transporter.sendMail({ from, to: applicant.email, ...confirmation }),
+      transporter.sendMail({ from, to: recipients, replyTo: applicant.email, ...buildInternalMessage(applicant) }),
+      transporter.sendMail({ from, to: applicant.email, ...buildConfirmationMessage(applicant) }),
     ]);
-    return res.status(200).json({ ok: true });
   } catch {
-    return res.status(502).json({ ok: false });
+    throw new ContactRequestError(502, "Mail delivery failed");
   }
+
+  return { accepted: true, ignored: false };
 }
