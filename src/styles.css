@@ -2419,8 +2419,6 @@ svg {
   background: var(--warm);
 }
 
-.services-network { background: #f6f8fc; }
-.services-network .growth-graph { margin-top: 0; }
 .solutions-diagnostic { padding-top: 70px; padding-bottom: 70px; background: #fff; }
 .solutions-diagnostic .need-analyzer { margin-top: 0; }
 

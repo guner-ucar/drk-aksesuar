@@ -3221,6 +3221,7 @@ function HomePage({ navigate, lang, services }) {
                 {copy.hero.secondary}
               </PageLink>
             </div>
+            <DistributionNetwork services={services} navigate={navigate} lang={lang} />
           </div>
         </section>
         <EcosystemStrip lang={lang} />
@@ -3261,11 +3262,6 @@ function ServicesPage({ navigate, lang, services }) {
             <strong>DRK<small>TÜRKİYE</small></strong>
           </div>
         </PageHero>
-        <section className="section services-network">
-          <div className="shell">
-            <DistributionNetwork services={services} navigate={navigate} lang={lang} />
-          </div>
-        </section>
         <section className="section services-page">
           <div className="shell">
             <SectionHeading eyebrow={copy.sectionEyebrow} title={copy.sectionTitle} text={copy.sectionText} />
