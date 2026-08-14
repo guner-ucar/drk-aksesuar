@@ -59,6 +59,36 @@ const GROUP_PORTFOLIO_COMPANIES = PORTFOLIO_COMPANIES.filter((company) => compan
 const BRAND_PORTFOLIO_COMPANIES = PORTFOLIO_COMPANIES.filter((company) => company.kind === "brand");
 const FLAGSHIP_OPERATION_ICONS = [ShoppingBag, Globe2, Store, Zap];
 
+const FLAGSHIP_DESTINATIONS = {
+  "samsung-marketplace": {
+    marketplaces: [
+      {
+        name: "Hepsiburada",
+        domain: "hepsiburada.com",
+        url: "https://www.hepsiburada.com/magaza/samsung-turkiye?utm_source=google&utm_medium=cpc&utm_campaign=sc:hb-ecom.sr:google.md:text.op:purchase.cid:20106176329&utm_content=agid:149657222595&wt_gl=cpc.text.camp20106176329adgr149657222595&mwebtoapp=1&gad_source=1&gad_campaignid=20106176329&gbraid=0AAAAADOiRobFmAMplJ5jZ1f0XYEtGcmiW&gclid=CjwKCAjw1vXTBhB-EiwAEKr_k9f_B8CX-FlIa2xsoBSknuzHIwHSmNgXM07m2VQNGGM5IFT6kFNVVhoC9bwQAvD_BwE",
+      },
+      { name: "Trendyol", domain: "trendyol.com", url: "https://www.trendyol.com/magaza/samsung-turkiye-m-106636?channelId=1&sk=1" },
+      { name: "Pazarama", domain: "pazarama.com", url: "https://www.pazarama.com/magaza/samsung-turkiye" },
+      { name: "İdefix", domain: "idefix.com", url: "https://www.idefix.com/satici/samsung-turkiye-11967?srsltid=AfmBOoqs9kgEJJZh2D2rY5dFHHZ7iLK72vHC79v7cMxHU_jGAijhw258" },
+    ],
+  },
+  "samsung-shop": {
+    website: { url: "https://shop.samsung.com/tr/", label: { tr: "Samsung Shop'a git", en: "Visit Samsung Shop" } },
+  },
+  "samsung-hotel-tv": {
+    website: { url: "https://www.drkisortagim.com", label: { tr: "DRK Otel TV'yi incele", en: "Explore DRK Hotel TV" } },
+  },
+  "sharge-omnichannel": {
+    website: { url: "https://www.shargeturkiye.com", label: { tr: "Sharge Türkiye'ye git", en: "Visit Sharge Türkiye" } },
+    marketplaces: [
+      { name: "Hepsiburada", domain: "hepsiburada.com", url: "https://www.hepsiburada.com/magaza/sharge-turkiye" },
+      { name: "Trendyol", domain: "trendyol.com", url: "https://www.trendyol.com/magaza/sharge-turkiye-m-1113546?channelId=1&sst=0&sk=1" },
+      { name: "Pazarama", domain: "pazarama.com", url: "https://www.pazarama.com/magaza/sharge-turkiye" },
+      { name: "İdefix", domain: "idefix.com", url: "https://www.idefix.com/satici/sharge-turkiye-8527" },
+    ],
+  },
+};
+
 const SERVICE_DEFS = [
   {
     slug: "marka-temsili-strateji",
@@ -270,11 +300,6 @@ const COPY = {
       brandsLabel: "ÇALIŞTIĞIMIZ MARKALAR",
       brandsText: "Kategori ortaklıklarımız ve yönettiğimiz markalar",
     },
-    servicesSection: {
-      eyebrow: "DRK NE YAPAR?",
-      title: "Distribütörlükten fazlası. Markalar için ticari işletim sistemi.",
-      text: "Stratejiden ithalat ve kanala, lansmandan veriye kadar her katman aynı ticari hedefe bağlanır.",
-    },
     marketplace: {
       eyebrow: "TÜRKİYE SATIŞ EKOSİSTEMİ",
       title: "Markanızı Türkiye’nin güçlü satış kanallarında açar ve işletiriz.",
@@ -320,25 +345,6 @@ const COPY = {
         {
           q: "Yabancı bir marka Türkiye’ye nasıl hazırlanır?",
           a: "Pazar ve kategori analizi, fiyatlandırma, yerel konumlandırma, kanal seçimi, içerik, lansman ve ölçüm planı tek yol haritasında hazırlanır.",
-        },
-      ],
-    },
-    homeSolutions: {
-      eyebrow: "PAZAR VE KATEGORİ UZMANLIĞI",
-      title: "Global vizyon.\nYerel pazar refleksi.",
-      text: "Global marka standartlarını, yerel tüketici içgörüsünü ve teknoloji kategorisinin ticari gerçekliğini aynı masada buluşturuyoruz.",
-      blocks: [
-        {
-          label: "PAZARA GİRİŞ",
-          title: "Global markadan yerel kategori liderine.",
-          text: "Markanın yerel konumunu, fiyatını, kanalını ve lansman hikâyesini birlikte kurarız.",
-          link: "Pazara giriş çözümü",
-        },
-        {
-          label: "KANAL OPERASYONU",
-          title: "Ürünü doğru yerde, doğru ritimde büyütürüz.",
-          text: "Pazaryeri, teknoloji perakendesi, e-ticaret ve bayi yapısını tek satış planında işletiriz.",
-          link: "Kanal çözümü",
         },
       ],
     },
@@ -392,6 +398,46 @@ const COPY = {
       text: "DRK Aksesuar; teknoloji ve aksesuar kategorisinde global markaların Türkiye operasyonunu üstlenen, yerel markalar için de seçili büyüme ve dağıtım projeleri geliştiren yeni nesil marka işletim ortağıdır.",
       statementEyebrow: "NEDEN DRK?",
       statement: "Türkiye’de başarılı olmak yalnızca ürün getirmek değil; markayı, kanalı ve tüketici deneyimini aynı ticari sistemde işletmektir.",
+      missionEyebrow: "MİSYON",
+      missionTitle: "Marka operasyonunu ölçülebilir, öngörülebilir ve ölçeklenebilir bir ticari sisteme dönüştürmek.",
+      missionText: "Misyonumuz; global marka standardını Türkiye'nin kanal gerçekliğiyle birleştirirken her kararı talep, birim ekonomi, stok sağlığı ve müşteri deneyimi verisine bağlamaktır.",
+      missionPoints: [
+        ["Talebi ölç", "Arama, trafik, dönüşüm ve satış hızını kategori bazında birlikte okuruz."],
+        ["Ekonomiyi koru", "Kanal komisyonu, lojistik, medya, iade ve ürün maliyetini katkı marjında birleştiririz."],
+        ["Stoku yönet", "Stok günü, yaşlanma, bulunurluk ve ikmal süresini aynı kontrol döngüsünde izleriz."],
+        ["Kararı işlet", "Haftalık ticari ritimde sinyali karara, kararı sorumlu ve tarih içeren aksiyona dönüştürürüz."],
+      ],
+      technicalEyebrow: "TEKNİK İŞLETİM MODELİ",
+      technicalTitle: "Bir teknoloji markası yalnız satışla değil; veri, birim ekonomi ve operasyon ritmiyle yönetilir.",
+      technicalText: "DRK'nın teknik bakışı, kanal performansını birbirinden kopuk raporlar yerine neden–sonuç ilişkisi kuran tek bir ticari kontrol düzleminde ele alır.",
+      technicalLayers: [
+        {
+          number: "01",
+          title: "Talep ve kategori modeli",
+          text: "Kategori talebini; arama eğilimi, oturum, ürün sayfası dönüşümü, fiyat indeksi ve haftalık satış hızıyla okuruz. Böylece büyümenin talep eksikliğinden mi, içerik–fiyat–bulunurluk probleminden mi kaynaklandığı ayrışır.",
+          signals: ["Arama talebi", "Dönüşüm oranı", "Satış hızı"],
+        },
+        {
+          number: "02",
+          title: "Birim ekonomi ve katkı marjı",
+          text: "Net satıştan ürün maliyeti, kanal komisyonu, kargo, medya harcaması, kampanya desteği ve iade etkisini çıkarırız. Ciroyu değil, sürdürülebilir katkı üreten ürün–kanal kombinasyonunu büyütürüz.",
+          signals: ["Net gelir", "Katkı marjı", "Medya verimi"],
+        },
+        {
+          number: "03",
+          title: "Stok, ikmal ve servis seviyesi",
+          text: "Stok günü; eldeki satılabilir adedin ortalama günlük satış hızına bölünmesiyle okunur. Yaşlanan stok, stokta yok kalma riski, tedarik süresi ve sipariş karşılama oranı birlikte yönetilir.",
+          signals: ["Stok günü", "Stok yaşı", "Karşılama oranı"],
+        },
+        {
+          number: "04",
+          title: "Kanal yürütme ve kontrol düzlemi",
+          text: "Katalog bütünlüğü, fiyat tutarlılığı, kampanya takvimi, sipariş–iade SLA'ları ve müşteri geri bildirimleri tek görev sistemine bağlanır. Dashboard yalnız raporlamaz; sapma için sahip, eşik ve aksiyon üretir.",
+          signals: ["Katalog skoru", "Fiyat tutarlılığı", "Operasyon SLA"],
+        },
+      ],
+      technicalNoteTitle: "Teknik not · Sell-in büyümesi tek başına başarı değildir.",
+      technicalNote: "Kanala yapılan sevkiyat sell-in, son tüketiciye gerçekleşen satış sell-out'tur. Sağlıklı büyüme; iki hareket arasındaki farkın, stok yaşının ve katkı marjının birlikte izlenmesini gerektirir. Aksi hâlde yüksek sevkiyat, kanalda yaşlanan stok ve fiyat baskısı üretebilir.",
       principles: [
         ["Yerel uzmanlık", "Türkiye tüketicisini, perakendeyi ve pazaryeri dinamiklerini yakından okuruz."],
         ["Marka disiplini", "Global marka standartlarını yerel uygulamada korur ve güçlendiririz."],
@@ -593,11 +639,6 @@ const COPY = {
       brandsLabel: "BRANDS WE WORK WITH",
       brandsText: "Our category partnerships and managed brands",
     },
-    servicesSection: {
-      eyebrow: "WHAT DOES DRK DO?",
-      title: "More than distribution. A commercial operating system for brands.",
-      text: "From strategy and market access to launch and data, every layer is connected to the same commercial objective.",
-    },
     marketplace: {
       eyebrow: "TÜRKİYE SALES ECOSYSTEM",
       title: "We open and operate your brand across Türkiye’s leading sales channels.",
@@ -643,25 +684,6 @@ const COPY = {
         {
           q: "How is a global brand prepared for Türkiye?",
           a: "Market and category analysis, pricing, local positioning, channel selection, content, launch and measurement are combined in one roadmap.",
-        },
-      ],
-    },
-    homeSolutions: {
-      eyebrow: "MARKET AND CATEGORY EXPERTISE",
-      title: "Global vision.\nLocal market reflex.",
-      text: "We bring global brand standards, local consumer insight and the commercial realities of technology categories to the same table.",
-      blocks: [
-        {
-          label: "MARKET ENTRY",
-          title: "From global brand to local category leader.",
-          text: "We shape the brand’s local positioning, pricing, channels and launch narrative.",
-          link: "Market-entry solution",
-        },
-        {
-          label: "CHANNEL OPERATIONS",
-          title: "We grow the product in the right place and rhythm.",
-          text: "We operate marketplace, technology retail, e-commerce and dealer structures under one sales plan.",
-          link: "Channel solution",
         },
       ],
     },
@@ -715,6 +737,46 @@ const COPY = {
       text: "DRK Aksesuar is a new-generation brand operating partner that leads Türkiye operations for global technology and accessory brands while developing selected growth and distribution projects for local brands.",
       statementEyebrow: "WHY DRK?",
       statement: "Success in Türkiye is not only about bringing in products; it is about operating the brand, channels and consumer experience within one commercial system.",
+      missionEyebrow: "MISSION",
+      missionTitle: "Turn brand operations into a measurable, predictable and scalable commercial system.",
+      missionText: "Our mission is to connect global brand standards with Türkiye's channel realities and ground every decision in demand, unit economics, inventory health and customer-experience data.",
+      missionPoints: [
+        ["Measure demand", "Read search, traffic, conversion and sales velocity together at category level."],
+        ["Protect economics", "Combine channel fees, logistics, media, returns and product cost into contribution margin."],
+        ["Control inventory", "Track days of inventory, ageing, availability and replenishment lead time in one loop."],
+        ["Operationalise decisions", "Turn signals into decisions and decisions into owned, dated actions in a weekly trading rhythm."],
+      ],
+      technicalEyebrow: "TECHNICAL OPERATING MODEL",
+      technicalTitle: "A technology brand is managed through data, unit economics and operating rhythm—not sales alone.",
+      technicalText: "DRK treats channel performance as one commercial control plane with clear cause-and-effect relationships, rather than a collection of disconnected reports.",
+      technicalLayers: [
+        {
+          number: "01",
+          title: "Demand and category model",
+          text: "We read category demand through search trends, sessions, product-page conversion, price index and weekly sales velocity. This separates weak demand from content, pricing or availability problems.",
+          signals: ["Search demand", "Conversion rate", "Sales velocity"],
+        },
+        {
+          number: "02",
+          title: "Unit economics and contribution margin",
+          text: "We subtract product cost, channel fees, shipping, media, campaign support and return impact from net sales. We scale product-channel combinations that generate sustainable contribution—not revenue alone.",
+          signals: ["Net revenue", "Contribution margin", "Media efficiency"],
+        },
+        {
+          number: "03",
+          title: "Inventory, replenishment and service level",
+          text: "Days of inventory is read as sellable stock divided by average daily sales velocity. Ageing stock, out-of-stock risk, lead time and order fill rate are controlled together.",
+          signals: ["Days of inventory", "Inventory age", "Fill rate"],
+        },
+        {
+          number: "04",
+          title: "Channel execution and control plane",
+          text: "Catalogue completeness, price consistency, campaign calendars, order-return SLAs and customer feedback feed one task system. The dashboard assigns owners, thresholds and actions to deviations.",
+          signals: ["Catalogue score", "Price consistency", "Operating SLA"],
+        },
+      ],
+      technicalNoteTitle: "Technical note · Sell-in growth is not success on its own.",
+      technicalNote: "Sell-in is shipment into the channel; sell-out is the sale to the end customer. Healthy growth requires the gap between the two, inventory age and contribution margin to be monitored together. Otherwise high shipments can create ageing channel stock and price pressure.",
       principles: [
         ["Local expertise", "We understand Türkiye’s consumers, retail landscape and marketplace dynamics."],
         ["Brand discipline", "We protect and strengthen global brand standards through local execution."],
@@ -1771,6 +1833,7 @@ function FlagshipOperations({ lang }) {
           {copy.items.map((item, index) => {
             const company = PORTFOLIO_BY_NAME.get(item.brand);
             const Icon = FLAGSHIP_OPERATION_ICONS[index];
+            const destinations = FLAGSHIP_DESTINATIONS[item.id];
             return (
               <article
                 className={`flagship-operation ${item.brand === "Sharge" ? "flagship-operation--sharge" : ""}`}
@@ -1792,6 +1855,43 @@ function FlagshipOperations({ lang }) {
                 <div className="flagship-operation__tags">
                   {item.tags.map((tag) => <span key={tag}>{tag}</span>)}
                 </div>
+                {destinations ? (
+                  <div className="flagship-operation__destinations">
+                    {destinations.website ? (
+                      <OutboundLink
+                        href={destinations.website.url}
+                        className="flagship-operation__website"
+                        aria-label={`${destinations.website.label[lang]} — ${item.brand}`}
+                      >
+                        <Globe2 size={14} />
+                        <span>{destinations.website.label[lang]}</span>
+                        <ArrowUpRight size={14} />
+                      </OutboundLink>
+                    ) : null}
+                    {destinations.marketplaces ? (
+                      <div className="flagship-operation__marketplaces">
+                        <small>
+                          {lang === "tr"
+                            ? `RESMİ PAZARYERİ MAĞAZALARI · ${destinations.marketplaces.length}`
+                            : `OFFICIAL MARKETPLACE STORES · ${destinations.marketplaces.length}`}
+                        </small>
+                        <div>
+                          {destinations.marketplaces.map((marketplace) => (
+                            <OutboundLink
+                              href={marketplace.url}
+                              key={marketplace.name}
+                              aria-label={`${item.brand} ${marketplace.name} ${lang === "tr" ? "mağazasına git" : "store"}`}
+                            >
+                              <img src={faviconUrl(marketplace.domain)} alt="" width="128" height="128" loading="lazy" decoding="async" />
+                              <span>{marketplace.name}</span>
+                              <ArrowUpRight size={11} />
+                            </OutboundLink>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
               </article>
             );
           })}
@@ -3121,56 +3221,12 @@ function HomePage({ navigate, lang, services }) {
                 {copy.hero.secondary}
               </PageLink>
             </div>
-            <NeedAnalyzer navigate={navigate} lang={lang} />
-            <DistributionNetwork services={services} navigate={navigate} lang={lang} />
           </div>
         </section>
         <EcosystemStrip lang={lang} />
         <FlagshipOperations lang={lang} />
         <MarketReach lang={lang} selectedId={selectedReach} onSelect={setSelectedReach} />
         <Portfolio lang={lang} withImmersive />
-        <section className="section home-services">
-          <div className="shell">
-            <SectionHeading
-              eyebrow={copy.servicesSection.eyebrow}
-              title={copy.servicesSection.title}
-              text={copy.servicesSection.text}
-            />
-            <div className="home-service-grid">
-              {services.map((service) => (
-                <ServiceCard key={service.slug} service={service} navigate={navigate} lang={lang} compact />
-              ))}
-            </div>
-            <ArrowLink to="/hizmetler" navigate={navigate}>{copy.common.allServices}</ArrowLink>
-            <QuickAnswers lang={lang} />
-          </div>
-        </section>
-        <MarketplaceEcosystem lang={lang} compact />
-        <section className="section home-solutions">
-          <div className="shell">
-            <SectionHeading
-              eyebrow={copy.homeSolutions.eyebrow}
-              title={copy.homeSolutions.title}
-              text={copy.homeSolutions.text}
-            />
-            <div className="solution-preview-grid">
-              {copy.homeSolutions.blocks.map((block, index) => (
-                <article className="solution-preview" key={block.label}>
-                  <img
-                    src={index === 0 ? "/images/market-entry-hero.webp" : "/images/ecommerce-editorial.webp"}
-                    alt=""
-                  />
-                  <div>
-                    <small>{block.label}</small>
-                    <h3>{block.title}</h3>
-                    <p>{block.text}</p>
-                    <ArrowLink to="/cozumler" navigate={navigate}>{block.link}</ArrowLink>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
         <CTA navigate={navigate} lang={lang} title={copy.hero.titleAccent} />
       </main>
       <Footer navigate={navigate} lang={lang} />
@@ -3205,6 +3261,11 @@ function ServicesPage({ navigate, lang, services }) {
             <strong>DRK<small>TÜRKİYE</small></strong>
           </div>
         </PageHero>
+        <section className="section services-network">
+          <div className="shell">
+            <DistributionNetwork services={services} navigate={navigate} lang={lang} />
+          </div>
+        </section>
         <section className="section services-page">
           <div className="shell">
             <SectionHeading eyebrow={copy.sectionEyebrow} title={copy.sectionTitle} text={copy.sectionText} />
@@ -3213,6 +3274,7 @@ function ServicesPage({ navigate, lang, services }) {
                 <ServiceCard key={service.slug} service={service} navigate={navigate} lang={lang} />
               ))}
             </div>
+            <QuickAnswers lang={lang} />
           </div>
         </section>
         <CTA navigate={navigate} lang={lang} />
@@ -3337,12 +3399,17 @@ function SolutionsPage({ navigate, lang }) {
             <div><Globe2 /><span>GLOBAL</span></div><div><MapPin /><span>TÜRKİYE</span></div>
           </div>
         </PageHero>
+        <section className="section solutions-diagnostic">
+          <div className="shell">
+            <NeedAnalyzer navigate={navigate} lang={lang} />
+          </div>
+        </section>
         <section className="section solutions-page">
           <div className="shell">
             {copy.blocks.map((block, index) => <SolutionBlock key={block.type} data={block} reverse={index === 1} />)}
           </div>
         </section>
-        <Portfolio lang={lang} />
+        <MarketplaceEcosystem lang={lang} />
         <CTA navigate={navigate} lang={lang} />
       </main>
       <Footer navigate={navigate} lang={lang} />
@@ -3388,6 +3455,7 @@ function ApproachPage({ navigate, lang }) {
 function AboutPage({ navigate, lang }) {
   const copy = COPY[lang].aboutPage;
   const icons = [MapPin, PackageCheck, Handshake];
+  const technicalIcons = [BarChart3, TrendingUp, Boxes, Database];
   return (
     <>
       <main>
@@ -3398,6 +3466,48 @@ function AboutPage({ navigate, lang }) {
         </PageHero>
         <section className="about-statement">
           <div className="shell"><small>{copy.statementEyebrow}</small><p>{copy.statement}</p></div>
+        </section>
+        <section className="section about-mission">
+          <div className="shell about-mission__grid">
+            <div className="about-mission__copy">
+              <span className="eyebrow"><Target size={14} /> {copy.missionEyebrow}</span>
+              <h2>{copy.missionTitle}</h2>
+              <p>{copy.missionText}</p>
+            </div>
+            <div className="about-mission__points">
+              {copy.missionPoints.map(([title, text], index) => (
+                <article key={title}>
+                  <small>{String(index + 1).padStart(2, "0")}</small>
+                  <div><h3>{title}</h3><p>{text}</p></div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="section about-technical">
+          <div className="shell">
+            <SectionHeading eyebrow={copy.technicalEyebrow} title={copy.technicalTitle} text={copy.technicalText} />
+            <div className="about-technical__grid">
+              {copy.technicalLayers.map((layer, index) => {
+                const Icon = technicalIcons[index];
+                return (
+                  <article key={layer.number}>
+                    <div className="about-technical__head">
+                      <span><Icon size={20} /></span>
+                      <small>{layer.number}</small>
+                    </div>
+                    <h3>{layer.title}</h3>
+                    <p>{layer.text}</p>
+                    <div>{layer.signals.map((signal) => <span key={signal}>{signal}</span>)}</div>
+                  </article>
+                );
+              })}
+            </div>
+            <aside className="about-technical__note">
+              <Database size={22} />
+              <div><h3>{copy.technicalNoteTitle}</h3><p>{copy.technicalNote}</p></div>
+            </aside>
+          </div>
         </section>
         <section className="section principles">
           <div className="shell">
