@@ -48,6 +48,7 @@ import {
 } from "./portfolioData";
 import TurkeyMap from "./TurkeyMap";
 import CHINA_MAP from "@svg-maps/china";
+import { TECHNICAL_METHODS, TECHNICAL_NOTE } from "./technicalMethodology";
 
 const BRAND_NAME = "DRK Aksesuar";
 const LOGO_PATH = "/brand/drk-aksesuar-logo.png";
@@ -58,26 +59,57 @@ const PORTFOLIO_BY_NAME = new Map(PORTFOLIO_COMPANIES.map((company) => [company.
 const GROUP_PORTFOLIO_COMPANIES = PORTFOLIO_COMPANIES.filter((company) => company.kind === "group");
 const BRAND_PORTFOLIO_COMPANIES = PORTFOLIO_COMPANIES.filter((company) => company.kind === "brand");
 const FLAGSHIP_OPERATION_ICONS = [ShoppingBag, Globe2, Store, Zap];
+const TECHNICAL_LAYER_ICONS = [BarChart3, TrendingUp, Boxes, Target, Database];
+const TECHNICAL_UI = {
+  tr: {
+    methodology: "Metodoloji",
+    formulas: "Hesaplama",
+    decisions: "Karar mantığı",
+    sources: "Veri kaynakları",
+    classifications: "Operasyon sınıfları",
+    example: "Operasyon örneği",
+    caveat: "Model notu",
+    output: "Çıktı",
+    expand: "Teknik metodolojiyi aç",
+    collapse: "Teknik metodolojiyi kapat",
+    noteExpand: "Sell-in / sell-out metodolojisini aç",
+    evaluatedWith: "Birlikte değerlendirilen sinyaller",
+  },
+  en: {
+    methodology: "Methodology",
+    formulas: "Calculation",
+    decisions: "Decision logic",
+    sources: "Data sources",
+    classifications: "Operating classes",
+    example: "Operating example",
+    caveat: "Model note",
+    output: "Output",
+    expand: "Open technical methodology",
+    collapse: "Close technical methodology",
+    noteExpand: "Open sell-in / sell-out methodology",
+    evaluatedWith: "Signals evaluated together",
+  },
+};
 const HERO_ACCENT = {
   tr: {
     words: [
-      { text: "güçlü", tone: "strong" },
-      { text: "görünür", tone: "visible" },
-      { text: "kârlı", tone: "profitable" },
-      { text: "ölçeklenebilir", tone: "scalable" },
-      { text: "rekabetçi", tone: "competitive" },
-      { text: "kalıcı", tone: "lasting" },
+      { text: "Güçlü", tone: "Strong" },
+      { text: "Görünür", tone: "Visible" },
+      { text: "Kârlı", tone: "Profitable" },
+      { text: "Ölçeklenebilir", tone: "Scalable" },
+      { text: "Rekabetçi", tone: "Competitive" },
+      { text: "Kalıcı", tone: "Lasting" },
     ],
     suffix: "hale getiririz.",
   },
   en: {
     words: [
-      { text: "powerful", tone: "strong" },
-      { text: "visible", tone: "visible" },
-      { text: "profitable", tone: "profitable" },
-      { text: "scalable", tone: "scalable" },
-      { text: "competitive", tone: "competitive" },
-      { text: "lasting", tone: "lasting" },
+      { text: "Powerful", tone: "Powerful" },
+      { text: "Visible", tone: "Visible" },
+      { text: "Profitable", tone: "Profitable" },
+      { text: "Scalable", tone: "Scalable" },
+      { text: "Competitive", tone: "Competitive" },
+      { text: "Lasting", tone: "Lasting" },
     ],
     suffix: "in-market.",
   },
@@ -184,7 +216,7 @@ const COPY = {
       solutions: "Çözümler",
       approach: "Yaklaşım",
       about: "Hakkımızda",
-      contact: "Markanı konuşalım",
+      contact: "Markanı Konuşalım",
     },
     common: {
       detail: "Detay sayfası",
@@ -428,7 +460,7 @@ const COPY = {
       missionPoints: [
         ["Talebi ölç", "Arama, trafik, dönüşüm ve satış hızını kategori bazında birlikte okuruz."],
         ["Ekonomiyi koru", "Kanal komisyonu, lojistik, medya, iade ve ürün maliyetini katkı marjında birleştiririz."],
-        ["Stoku yönet", "Stok günü, yaşlanma, bulunurluk ve ikmal süresini aynı kontrol döngüsünde izleriz."],
+        ["Stoğu Yönet", "Stok günü, yaşlanma, bulunurluk ve ikmal süresini aynı kontrol döngüsünde izleriz."],
         ["Kararı işlet", "Haftalık ticari ritimde sinyali karara, kararı sorumlu ve tarih içeren aksiyona dönüştürürüz."],
       ],
       technicalEyebrow: "TEKNİK İŞLETİM MODELİ",
@@ -489,9 +521,12 @@ const COPY = {
         goal: "Büyüme hedefiniz",
         goalPlaceholder: "Markanız, ürünleriniz ve hedefiniz hakkında kısa bilgi...",
         submit: "Görüşme talebi oluştur",
+        sending: "Talebiniz gönderiliyor...",
       },
       successTitle: "Markanız için ilk adımı attınız.",
       successText: "Başvuru formunuz başarı ile gönderildi. Marka danışmanlarımız en kısa sürede sizinle iletişime geçecektir.",
+      errorTitle: "Talebiniz gönderilemedi.",
+      errorText: "Lütfen bağlantınızı kontrol edip yeniden deneyin. Sorun devam ederse bizimle e-posta üzerinden iletişime geçebilirsiniz.",
       reset: "Yeni talep oluştur",
       faqEyebrow: "MERAK EDİLENLER",
       faqTitle: "Net sorular. Net cevaplar.",
@@ -828,9 +863,12 @@ const COPY = {
         goal: "Your growth objective",
         goalPlaceholder: "A short note about your brand, products and goals...",
         submit: "Request a meeting",
+        sending: "Sending your request...",
       },
       successTitle: "You've taken the first step for your brand.",
       successText: "Your application form has been submitted successfully. Our brand consultants will contact you shortly.",
+      errorTitle: "Your request could not be sent.",
+      errorText: "Please check your connection and try again. If the issue continues, contact us by email.",
       reset: "Create another request",
       faqEyebrow: "FREQUENTLY ASKED",
       faqTitle: "Clear questions. Clear answers.",
@@ -3278,7 +3316,7 @@ function HomePage({ navigate, lang, services }) {
         <EcosystemStrip lang={lang} />
         <FlagshipOperations lang={lang} />
         <MarketReach lang={lang} selectedId={selectedReach} onSelect={setSelectedReach} />
-        <Portfolio lang={lang} withImmersive />
+        <Portfolio lang={lang} />
         <CTA navigate={navigate} lang={lang} title={copy.hero.titleAccent} />
       </main>
       <Footer navigate={navigate} lang={lang} />
@@ -3499,10 +3537,169 @@ function ApproachPage({ navigate, lang }) {
   );
 }
 
+function TechnicalFlow({ title, items }) {
+  return (
+    <div className="technical-flow" role="img" aria-label={`${title}: ${items.join(" → ")}`}>
+      <small>{title}</small>
+      <div>
+        {items.map((item, index) => (
+          <span className="technical-flow__step" key={item}>
+            <b>{item}</b>
+            {index < items.length - 1 ? <ArrowRight size={15} aria-hidden="true" /> : null}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TechnicalMethodologyDetail({ layer, lang }) {
+  const ui = TECHNICAL_UI[lang];
+  return (
+    <div className="technical-detail">
+      <section className="technical-detail__method">
+        <small>{ui.methodology}</small>
+        <p>{layer.methodology}</p>
+      </section>
+
+      <section className="technical-detail__section">
+        <h4>{ui.formulas}</h4>
+        <div className="technical-formulas">
+          {layer.formulas.map((formula) => (
+            <article key={formula.label}>
+              <small>{formula.label}</small>
+              <code>{formula.expression}</code>
+              <p>{formula.note}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {layer.flow ? <TechnicalFlow title={layer.flowTitle} items={layer.flow} /> : null}
+
+      <div className="technical-detail__columns">
+        <section className="technical-detail__section">
+          <h4>{layer.trackedTitle}</h4>
+          <div className="technical-tags">
+            {layer.tracked.map((signal) => <span key={signal}>{signal}</span>)}
+          </div>
+        </section>
+        <section className="technical-detail__section">
+          <h4>{ui.decisions}</h4>
+          <div className="technical-decisions">
+            {layer.decisions.map((decision) => (
+              <article key={`${decision.condition}-${decision.action}`}>
+                <code>IF {decision.condition}</code>
+                <ArrowRight size={15} aria-hidden="true" />
+                <strong>{decision.action}</strong>
+              </article>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {layer.classifications ? (
+        <section className="technical-detail__section">
+          <h4>{ui.classifications}</h4>
+          <div className="technical-classes">
+            {layer.classifications.map((item) => (
+              <article key={item.title}><strong>{item.title}</strong><span>{item.text}</span></article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      <section className="technical-detail__section">
+        <h4>{ui.sources}</h4>
+        <div className="technical-sources">
+          {layer.sources.map((source) => <span key={source}>{source}</span>)}
+        </div>
+      </section>
+
+      <div className="technical-detail__insights">
+        <article><small>{ui.example}</small><p>{layer.example}</p></article>
+        {layer.caveat ? <article className="technical-detail__caveat"><small>{ui.caveat}</small><p>{layer.caveat}</p></article> : null}
+      </div>
+
+      <div className="technical-output">
+        <span>{ui.output}</span>
+        <code>{layer.output}</code>
+      </div>
+    </div>
+  );
+}
+
+function TechnicalAccordion({ lang }) {
+  const [openNumber, setOpenNumber] = useState(null);
+  const ui = TECHNICAL_UI[lang];
+  return (
+    <div className="technical-accordion">
+      {TECHNICAL_METHODS[lang].map((layer, index) => {
+        const Icon = TECHNICAL_LAYER_ICONS[index];
+        const isOpen = openNumber === layer.number;
+        const panelId = `technical-panel-${lang}-${layer.number}`;
+        return (
+          <article className="technical-accordion__item" data-open={isOpen} key={layer.number}>
+            <button
+              type="button"
+              className="technical-accordion__trigger"
+              aria-expanded={isOpen}
+              aria-controls={panelId}
+              onClick={() => setOpenNumber(isOpen ? null : layer.number)}
+            >
+              <span className="technical-accordion__icon"><Icon size={21} /></span>
+              <small>{layer.number}</small>
+              <span className="technical-accordion__copy">
+                <strong>{layer.title}</strong>
+                <span>{layer.summary}</span>
+              </span>
+              <span className="technical-accordion__signals" aria-hidden="true">
+                {layer.signals.map((signal) => <i key={signal}>{signal}</i>)}
+              </span>
+              <span className="technical-accordion__toggle">
+                <span className="sr-only">{isOpen ? ui.collapse : ui.expand}</span>
+                <ChevronDown size={20} aria-hidden="true" />
+              </span>
+            </button>
+            <div className="technical-accordion__body" id={panelId} data-open={isOpen} aria-hidden={!isOpen}>
+              <div><TechnicalMethodologyDetail layer={layer} lang={lang} /></div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  );
+}
+
+function TechnicalSellInNote({ lang }) {
+  const note = TECHNICAL_NOTE[lang];
+  const ui = TECHNICAL_UI[lang];
+  return (
+    <details className="about-technical__note">
+      <summary>
+        <span className="about-technical__note-icon"><Database size={22} /></span>
+        <span><strong>{note.title}</strong><small>{ui.noteExpand}</small></span>
+        <ChevronDown size={20} aria-hidden="true" />
+      </summary>
+      <div className="about-technical__note-body">
+        <p>{note.intro}</p>
+        <div className="technical-note__definitions">
+          {note.definitions.map(([title, text]) => <article key={title}><strong>{title}</strong><span>{text}</span></article>)}
+        </div>
+        <code className="technical-note__formula">{note.formula}</code>
+        <div className="technical-note__example">
+          {note.example.map(([label, value]) => <span key={label}><small>{label}</small><strong>{value}</strong></span>)}
+        </div>
+        <div className="technical-note__factors"><small>{ui.evaluatedWith}</small><div>{note.factors.map((factor) => <span key={factor}>{factor}</span>)}</div></div>
+        <p className="technical-note__conclusion">{note.conclusion}</p>
+      </div>
+    </details>
+  );
+}
+
 function AboutPage({ navigate, lang }) {
   const copy = COPY[lang].aboutPage;
   const icons = [MapPin, PackageCheck, Handshake];
-  const technicalIcons = [BarChart3, TrendingUp, Boxes, Database];
   return (
     <>
       <main>
@@ -3534,26 +3731,8 @@ function AboutPage({ navigate, lang }) {
         <section className="section about-technical">
           <div className="shell">
             <SectionHeading eyebrow={copy.technicalEyebrow} title={copy.technicalTitle} text={copy.technicalText} />
-            <div className="about-technical__grid">
-              {copy.technicalLayers.map((layer, index) => {
-                const Icon = technicalIcons[index];
-                return (
-                  <article key={layer.number}>
-                    <div className="about-technical__head">
-                      <span><Icon size={20} /></span>
-                      <small>{layer.number}</small>
-                    </div>
-                    <h3>{layer.title}</h3>
-                    <p>{layer.text}</p>
-                    <div>{layer.signals.map((signal) => <span key={signal}>{signal}</span>)}</div>
-                  </article>
-                );
-              })}
-            </div>
-            <aside className="about-technical__note">
-              <Database size={22} />
-              <div><h3>{copy.technicalNoteTitle}</h3><p>{copy.technicalNote}</p></div>
-            </aside>
+            <TechnicalAccordion lang={lang} />
+            <TechnicalSellInNote lang={lang} />
           </div>
         </section>
         <section className="section principles">
@@ -3578,22 +3757,26 @@ function AboutPage({ navigate, lang }) {
 
 function ContactPage({ navigate, lang, services }) {
   const copy = COPY[lang].contactPage;
-  const [sent, setSent] = useState(false);
+  const [formStatus, setFormStatus] = useState("idle");
   const [openFaq, setOpenFaq] = useState(0);
 
-  const prepareEmail = (event) => {
+  const submitForm = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const subject = lang === "tr"
-      ? `DRK Aksesuar görüşme talebi · ${data.get("company")}`
-      : `DRK Aksesuar meeting request · ${data.get("company")}`;
-    const labels = lang === "tr"
-      ? ["Ad Soyad", "Şirket / Marka", "E-posta", "Telefon", "İlgilenilen alan", "Büyüme hedefi"]
-      : ["Name", "Company / Brand", "Email", "Phone", "Area of interest", "Growth objective"];
-    const values = ["name", "company", "email", "phone", "area", "goal"];
-    const body = values.map((key, index) => `${labels[index]}: ${data.get(key) || "-"}`).join("\n");
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    const form = event.currentTarget;
+    const payload = Object.fromEntries(new FormData(form).entries());
+    setFormStatus("sending");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...payload, lang }),
+      });
+      if (!response.ok) throw new Error("Contact request failed");
+      form.reset();
+      setFormStatus("success");
+    } catch {
+      setFormStatus("error");
+    }
   };
 
   return (
@@ -3614,15 +3797,15 @@ function ContactPage({ navigate, lang, services }) {
               <p>{copy.formText}</p>
               <div>{copy.benefits.map((item) => <span key={item}><Check /> {item}</span>)}</div>
             </div>
-            <form className="project-form" onSubmit={prepareEmail}>
-              {sent ? (
+            <form className="project-form" onSubmit={submitForm} aria-busy={formStatus === "sending"}>
+              {formStatus === "success" ? (
                 <div className="form-success">
                   <span><Check size={27} /></span><h3>{copy.successTitle}</h3><p>{copy.successText}</p>
-                  <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-                  <button type="button" onClick={() => setSent(false)}>{copy.reset}</button>
+                  <button type="button" onClick={() => setFormStatus("idle")}>{copy.reset}</button>
                 </div>
               ) : (
                 <>
+                  <label className="form-honeypot" aria-hidden="true">Website<input name="website" type="text" tabIndex="-1" autoComplete="off" /></label>
                   <div className="form-row">
                     <label>{copy.fields.name}<input required name="name" autoComplete="name" type="text" placeholder={copy.fields.namePlaceholder} /></label>
                     <label>{copy.fields.company}<input required name="company" autoComplete="organization" type="text" placeholder={copy.fields.companyPlaceholder} /></label>
@@ -3638,8 +3821,13 @@ function ContactPage({ navigate, lang, services }) {
                     </select>
                   </label>
                   <label>{copy.fields.goal}<textarea required name="goal" rows="5" placeholder={copy.fields.goalPlaceholder} /></label>
-                  <button type="submit" className="button button--purple">
-                    {copy.fields.submit} <ArrowRight size={17} />
+                  {formStatus === "error" ? (
+                    <div className="form-error" role="alert">
+                      <strong>{copy.errorTitle}</strong><span>{copy.errorText}</span>
+                    </div>
+                  ) : null}
+                  <button type="submit" className="button button--purple" disabled={formStatus === "sending"}>
+                    {formStatus === "sending" ? copy.fields.sending : copy.fields.submit} <ArrowRight size={17} />
                   </button>
                 </>
               )}
