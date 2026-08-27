@@ -3218,6 +3218,7 @@ svg {
 }
 
 .contact-visual > span,
+.contact-visual > a,
 .contact-visual > strong {
   min-height: 73px;
   display: flex;
@@ -3227,8 +3228,13 @@ svg {
   border: 1px solid var(--line);
   border-radius: 11px;
   background: #fff;
+  color: var(--ink);
   font-size: 11px;
+  text-decoration: none;
 }
+
+.contact-visual > a { transition: border-color 180ms ease, transform 180ms ease; }
+.contact-visual > a:hover { border-color: var(--brand-green); transform: translateY(-1px); }
 
 .contact-visual > strong {
   color: #fff;
@@ -3578,10 +3584,29 @@ svg {
   color: var(--purple-dark);
 }
 
-.footer__word {
-  width: fit-content;
-  max-width: 100%;
-  margin: 70px auto 0;
+.footer__signature {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 70px;
+  padding: 25px 28px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--warm);
+}
+
+.footer__signature .brand--plain {
+  width: 250px;
+  height: 80px;
+}
+
+.footer__signature > span {
+  color: #77726b;
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: .06em;
+  text-align: right;
 }
 
 .footer__bottom {
@@ -4451,14 +4476,15 @@ svg {
     gap: 30px;
   }
 
-  .footer__word {
+  .footer__signature {
+    align-items: flex-start;
+    flex-direction: column;
     margin-top: 62px;
+    padding: 22px;
   }
 
-  .brand--display {
-    width: min(78vw, 340px);
-    height: min(25vw, 110px);
-  }
+  .footer__signature .brand--plain { width: min(64vw, 240px); height: 72px; }
+  .footer__signature > span { max-width: 32ch; text-align: left; line-height: 1.55; }
 
   .footer__bottom {
     flex-direction: column;

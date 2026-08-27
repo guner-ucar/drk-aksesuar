@@ -17,6 +17,7 @@ import {
   Menu,
   PackageCheck,
   Palette,
+  Phone,
   Rocket,
   Search,
   ShoppingBag,
@@ -54,6 +55,8 @@ const TechnicalMethodology = lazy(() => import("./components/about/TechnicalMeth
 const BRAND_NAME = "DRK Aksesuar";
 const LOGO_PATH = "/brand/drk-aksesuar-logo.png";
 const CONTACT_EMAIL = "info@drkisortagim.com";
+const CONTACT_PHONE = "+90 537 915 16 98";
+const CONTACT_PHONE_HREF = "+905379151698";
 const CONTACT_ADDRESS = "Sinpaş Flatofis, Defterdar, Otakçılar Cd. No:78, 34055 Eyüpsultan/İstanbul";
 const CONTACT_ADDRESS_SHORT = "Sinpaş Flatofis · Eyüpsultan / İstanbul";
 const PORTFOLIO_BY_NAME = new Map(PORTFOLIO_COMPANIES.map((company) => [company.name, company]));
@@ -1354,12 +1357,16 @@ function Footer({ navigate, lang, setLang }) {
               <small>{copy.common.contact.toUpperCase()}</small>
               <PageLink to="/iletisim" navigate={navigate}>{copy.common.projectForm}</PageLink>
               <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+              <a href={`tel:${CONTACT_PHONE_HREF}`}>{CONTACT_PHONE}</a>
               <span>{copy.common.location}</span>
               {setLang ? <LanguageSwitch lang={lang} setLang={setLang} /> : null}
             </div>
           </div>
         </div>
-        <div className="footer__word"><Logo navigate={navigate} display /></div>
+        <div className="footer__signature">
+          <Logo navigate={navigate} compact />
+          <span>{CONTACT_ADDRESS_SHORT}</span>
+        </div>
         <div className="footer__bottom">
           <span>{copy.common.rights}</span>
           <span>{copy.common.footerLine}</span>
@@ -3015,10 +3022,12 @@ function useCountUp(target, active, duration = 1700) {
 }
 
 function ReachStat({ def, lang, active, locale }) {
-  const value = useCountUp(def.n, active);
+  const animatedValue = useCountUp(def.n, active && def.animate !== false);
+  const value = def.animate === false ? def.n : animatedValue;
+  const suffix = typeof def.suffix === "object" ? def.suffix[lang] : def.suffix;
   return (
     <div className="reach-stat">
-      <strong>{value.toLocaleString(locale)}{def.suffix}</strong>
+      <strong>{value.toLocaleString(locale, { useGrouping: def.useGrouping !== false })}{suffix}</strong>
       <span>{def.label[lang]}</span>
     </div>
   );
@@ -3230,7 +3239,13 @@ function MarketReach({ lang, selectedId, onSelect }) {
         <div className="market-reach__intro">
           <span className="eyebrow"><MapPin size={13} /> {profileCopy.eyebrow}</span>
           <h2>{profileCopy.title}</h2>
-          <p>{profileCopy.text}</p>
+          {profileCopy.textLink ? (
+            <p>
+              {profileCopy.textBeforeLink}
+              <a href={profileCopy.textLink.url} target="_blank" rel="noreferrer">{profileCopy.textLink.label}</a>
+              {profileCopy.textAfterLink}
+            </p>
+          ) : <p>{profileCopy.text}</p>}
           <div className="market-reach__stats">
             {profile.metrics.map((def, index) => (
               <ReachStat key={`${profile.id}-${index}`} def={def} lang={lang} active={active} locale={locale} />
@@ -3606,9 +3621,10 @@ function ContactPage({ navigate, lang, services }) {
     <>
       <main>
         <PageHero eyebrow={copy.eyebrow} title={copy.title} text={copy.text} icon={Handshake}>
-          <div className="page-hero__visual contact-visual" aria-hidden="true">
+          <div className="page-hero__visual contact-visual">
             <span><Globe2 /> GLOBAL → TÜRKİYE</span>
             <span><MapPin /> {COPY[lang].common.location}</span>
+            <a href={`tel:${CONTACT_PHONE_HREF}`}><Phone /> {CONTACT_PHONE}</a>
             <strong><i /> {lang === "tr" ? "Yeni markalara açığız" : "Open to new brands"}</strong>
           </div>
         </PageHero>
@@ -3709,7 +3725,7 @@ function NotFoundPage({ navigate, lang }) {
 
 function App() {
   const { path, navigate } = useRouter();
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState("tr");
   const services = useMemo(() => buildServices(lang), [lang]);
   const service = services.find((item) => item.path === path);
 
