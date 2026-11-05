@@ -47,6 +47,7 @@ import {
   getFeaturedProduct,
 } from "./portfolioData";
 import TurkeyMap from "./TurkeyMap";
+import DrkLogo from "./DrkLogo";
 import CHINA_MAP from "@svg-maps/china";
 import { getCountryOptions } from "./formOptions";
 
@@ -1265,12 +1266,12 @@ function Logo({ navigate, display = false, compact = false, light = false }) {
       aria-label={`${BRAND_NAME} ana sayfa`}
     >
       <span className="brand__mark">
-        <img
-          src={compact ? LOGO_DARK_PATH : light ? LOGO_LIGHT_PATH : LOGO_PATH}
-          alt=""
-          width={compact || light ? 75 : 84}
-          height={compact || light ? 22 : 44}
-        />
+        {light || compact ? (
+          // Başlık: kaydırdıkça uçtan uca sinyal. Alt bilgi: görününce bir kez bağlanır.
+          <DrkLogo tone={compact ? "dark" : "light"} mode={compact ? "reveal" : "scroll"} />
+        ) : (
+          <img src={LOGO_PATH} alt="" width="84" height="44" />
+        )}
       </span>
     </PageLink>
   );
