@@ -159,12 +159,16 @@ export async function submitContactRequest(
     auth: { user: environment.MAIL_USERNAME, pass: environment.MAIL_PASSWORD },
     tls: { minVersion: "TLSv1.2" },
   });
-
   try {
-    await Promise.all([
+    const deliveries = [
       transporter.sendMail({ from, to: recipients, replyTo: applicant.email, ...buildInternalMessage(applicant) }),
-      transporter.sendMail({ from, to: applicant.email, ...buildConfirmationMessage(applicant) }),
-    ]);
+    ];
+
+    if (environment.SEND_APPLICANT_CONFIRMATION !== "false") {
+      deliveries.push(transporter.sendMail({ from, to: applicant.email, ...buildConfirmationMessage(applicant) }));
+    }
+
+    await Promise.all(deliveries);
   } catch (error) {
     throw new ContactRequestError(502, "Mail delivery failed", { cause: error });
   }

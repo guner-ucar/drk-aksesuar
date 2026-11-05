@@ -263,7 +263,7 @@ const BRANDING = {
   dorukCorporate: { surface: "#f1f5ff", surfaceAlt: "#ffffff", ink: "#17366d", muted: "#62708c", accent: "#4c74c9", accentStrong: "#17366d", mark: "DC" },
   dorukTelekom: { surface: "#edf8ff", surfaceAlt: "#ffffff", ink: "#123c59", muted: "#5b7485", accent: "#1e95ce", accentStrong: "#126e9a", mark: "DT" },
   speedGlobal: { surface: "#f3f3f3", surfaceAlt: "#ffffff", ink: "#111111", muted: "#666666", accent: "#111111", accentStrong: "#000000", mark: "SG" },
-  drk: { logo: "/brand/drk-aksesuar-logo.png", surface: "#f0f7ef", surfaceAlt: "#ffffff", ink: "#282531", muted: "#667064", accent: "#0d9f00", accentStrong: "#087800", mark: "DRK" },
+  drk: { logo: "/brand/drk-aksesuar-logo.svg", surface: "#f0f7ef", surfaceAlt: "#ffffff", ink: "#282531", muted: "#667064", accent: "#0d9f00", accentStrong: "#087800", mark: "DRK" },
   electronics: { surface: "#eff6fa", surfaceAlt: "#ffffff", ink: "#00254a", muted: "#5f7080", accent: "#0d9f00", accentStrong: "#00254a", mark: "DE" },
   fleet: { surface: "#fff1f3", surfaceAlt: "#ffffff", ink: "#1a1a18", muted: "#75676a", accent: "#cf152d", accentStrong: "#9f0e20", mark: "PF" },
   service: { surface: "#edf7f5", surfaceAlt: "#ffffff", ink: "#153a34", muted: "#607a75", accent: "#13a18b", accentStrong: "#0b7665", mark: "ST" },

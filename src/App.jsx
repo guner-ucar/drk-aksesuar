@@ -53,12 +53,11 @@ import { getCountryOptions } from "./formOptions";
 const TechnicalMethodology = lazy(() => import("./components/about/TechnicalMethodology"));
 
 const BRAND_NAME = "DRK Aksesuar";
-const LOGO_PATH = "/brand/drk-aksesuar-logo.png";
+const LOGO_PATH = "/brand/drk-aksesuar-logo.svg";
 const CONTACT_EMAIL = "info@drkisortagim.com";
 const CONTACT_PHONE = "+90 537 915 16 98";
 const CONTACT_PHONE_HREF = "+905379151698";
 const CONTACT_ADDRESS = "Sinpaş Flatofis, Defterdar, Otakçılar Cd. No:78, 34055 Eyüpsultan/İstanbul";
-const CONTACT_ADDRESS_SHORT = "Sinpaş Flatofis · Eyüpsultan / İstanbul";
 const PORTFOLIO_BY_NAME = new Map(PORTFOLIO_COMPANIES.map((company) => [company.name, company]));
 const GROUP_PORTFOLIO_COMPANIES = PORTFOLIO_COMPANIES.filter((company) => company.kind === "group");
 const BRAND_PORTFOLIO_COMPANIES = PORTFOLIO_COMPANIES.filter((company) => company.kind === "brand");
@@ -1260,7 +1259,7 @@ function Logo({ navigate, display = false, compact = false }) {
       aria-label={`${BRAND_NAME} ana sayfa`}
     >
       <span className="brand__mark">
-        <img src={LOGO_PATH} alt="" width="1500" height="478" />
+        <img src={LOGO_PATH} alt="" width="84" height="31" />
       </span>
     </PageLink>
   );
@@ -1362,10 +1361,6 @@ function Footer({ navigate, lang, setLang }) {
               {setLang ? <LanguageSwitch lang={lang} setLang={setLang} /> : null}
             </div>
           </div>
-        </div>
-        <div className="footer__signature">
-          <Logo navigate={navigate} compact />
-          <span>{CONTACT_ADDRESS_SHORT}</span>
         </div>
         <div className="footer__bottom">
           <span>{copy.common.rights}</span>

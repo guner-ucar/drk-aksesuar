@@ -35,6 +35,7 @@ The application listens on port `3000` unless `PORT` is set to another value.
 | `MAIL_FROM_ADDRESS` | Sender email address |
 | `MAIL_FROM_NAME` | Sender display name |
 | `CONTACT_RECIPIENTS` | Comma-separated internal recipients |
+| `SEND_APPLICANT_CONFIRMATION` | Set to `false` to disable the external confirmation email |
 
 Keep production values in the server or hosting panel. Do not commit the `.env` file.
 

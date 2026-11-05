@@ -59,6 +59,18 @@ test("contact request sends an internal message and applicant confirmation", asy
   assert.match(messages[0].text, /Çalışan kapasitesi: 51–200/);
 });
 
+test("contact request can disable the applicant confirmation", async () => {
+  const messages = [];
+  const result = await submitContactRequest(validPayload, {
+    environment: { ...mailEnvironment, SEND_APPLICANT_CONFIRMATION: "false" },
+    transportFactory: () => ({ sendMail: async (message) => messages.push(message) }),
+  });
+
+  assert.deepEqual(result, { accepted: true, ignored: false });
+  assert.equal(messages.length, 1);
+  assert.equal(messages[0].to[0], "team@example.com");
+});
+
 test("honeypot submissions are accepted without sending mail", async () => {
   const result = await submitContactRequest(
     { ...validPayload, website: "https://spam.example" },
