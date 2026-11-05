@@ -53,7 +53,12 @@ import { getCountryOptions } from "./formOptions";
 const TechnicalMethodology = lazy(() => import("./components/about/TechnicalMethodology"));
 
 const BRAND_NAME = "DRK Aksesuar";
+// Başlık lacivert (#1f2345): logonun zemini başlıkla birleşir. Beyaz zeminlerde
+// zeminsiz lacivert sürüm, koyu zeminlerde zeminsiz beyaz sürüm kullanılır.
 const LOGO_PATH = "/brand/drk-aksesuar-logo.svg";
+const LOGO_DARK_PATH = "/brand/drk-aksesuar-logo-dark.svg";
+const LOGO_PNG_PATH = "/brand/drk-aksesuar-logo.png";
+const OG_IMAGE_PATH = "/brand/drk-og.png";
 const CONTACT_EMAIL = "info@drkisortagim.com";
 const CONTACT_PHONE = "+90 537 915 16 98";
 const CONTACT_PHONE_HREF = "+905379151698";
@@ -1175,7 +1180,7 @@ function updateSeo(path, lang, services) {
   setMeta('meta[property="og:title"]', "content", title);
   setMeta('meta[property="og:description"]', "content", description);
   setMeta('meta[property="og:site_name"]', "content", BRAND_NAME);
-  setMeta('meta[property="og:image"]', "content", `${window.location.origin}${LOGO_PATH}`);
+  setMeta('meta[property="og:image"]', "content", `${window.location.origin}${OG_IMAGE_PATH}`);
   setMeta('meta[property="og:url"]', "content", `${window.location.origin}${path}`);
   setMeta('meta[name="twitter:title"]', "content", title);
   setMeta('meta[name="twitter:description"]', "content", description);
@@ -1203,7 +1208,7 @@ function updateSeo(path, lang, services) {
         "@type": "Organization",
         name: BRAND_NAME,
         url: window.location.origin,
-        logo: `${window.location.origin}${LOGO_PATH}`,
+        logo: `${window.location.origin}${LOGO_PNG_PATH}`,
         description,
         email: CONTACT_EMAIL,
         areaServed: "Türkiye",
@@ -1259,7 +1264,7 @@ function Logo({ navigate, display = false, compact = false }) {
       aria-label={`${BRAND_NAME} ana sayfa`}
     >
       <span className="brand__mark">
-        <img src={LOGO_PATH} alt="" width="84" height="31" />
+        <img src={compact ? LOGO_DARK_PATH : LOGO_PATH} alt="" width={compact ? 75 : 84} height={compact ? 22 : 44} />
       </span>
     </PageLink>
   );

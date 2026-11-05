@@ -7678,3 +7678,68 @@ svg {
   .pf-imm--cylinder-scroll .pf-imm__sticky { position: relative; }
   .pf-imm__scroll-cue { display: none; }
 }
+
+/* ── Başlık: logonun zemin rengi (#1f2345) ───────────────────────────
+   Logo, kendi lacivert zemini başlıkla birleşecek şekilde kullanılır.
+   Alt bilgi ve beyaz kartlarda zeminsiz lacivert sürüm vardır. */
+:root {
+  --header-bg: #1f2345;
+  --drk-red: #d61f23;
+}
+
+.header {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  background: var(--header-bg);
+  backdrop-filter: none;
+}
+
+.header .brand {
+  width: 92px;
+  height: 48px;
+}
+
+.header .nav-links a { color: rgba(255, 255, 255, 0.78); }
+.header .nav-links a:hover,
+.header .nav-links a.active { color: #fff; }
+.header .nav-links a::after { background: var(--drk-red); }
+
+.header .language-switch {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: transparent;
+}
+.header .language-switch svg { color: rgba(255, 255, 255, 0.6); }
+.header .language-switch button { color: rgba(255, 255, 255, 0.72); }
+.header .language-switch button.active {
+  color: var(--header-bg);
+  background: #fff;
+}
+
+.header .header__cta {
+  color: var(--header-bg);
+  background: #fff;
+}
+.header .header__cta:hover { background: #eceef6; }
+
+.header .menu-button {
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  background: transparent;
+}
+
+@media (max-width: 860px) {
+  /* Açılan menü beyaz bir kart: içindeki yazılar koyu kalır. */
+  .header .nav-links a { color: var(--ink); }
+  .header .nav-links a:hover,
+  .header .nav-links a.active { color: var(--purple-dark); }
+  .header .nav-links .mobile-contact { color: #fff; }
+  .header .mobile-language .language-switch {
+    border-color: var(--line);
+    background: #fff;
+  }
+  .header .mobile-language .language-switch svg { color: #7a7670; }
+  .header .mobile-language .language-switch button { color: #817d77; }
+  .header .mobile-language .language-switch button.active {
+    color: #fff;
+    background: var(--ink);
+  }
+}
