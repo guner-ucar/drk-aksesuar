@@ -57,6 +57,7 @@ const BRAND_NAME = "DRK Aksesuar";
 // zeminsiz lacivert sürüm, koyu zeminlerde zeminsiz beyaz sürüm kullanılır.
 const LOGO_PATH = "/brand/drk-aksesuar-logo.svg";
 const LOGO_DARK_PATH = "/brand/drk-aksesuar-logo-dark.svg";
+const LOGO_LIGHT_PATH = "/brand/drk-aksesuar-logo-light.svg";
 const LOGO_PNG_PATH = "/brand/drk-aksesuar-logo.png";
 const OG_IMAGE_PATH = "/brand/drk-og.png";
 const CONTACT_EMAIL = "info@drkisortagim.com";
@@ -1255,7 +1256,7 @@ function PageLink({ to, navigate, className = "", children, onClick, ...props })
   );
 }
 
-function Logo({ navigate, display = false, compact = false }) {
+function Logo({ navigate, display = false, compact = false, light = false }) {
   return (
     <PageLink
       to="/"
@@ -1264,7 +1265,12 @@ function Logo({ navigate, display = false, compact = false }) {
       aria-label={`${BRAND_NAME} ana sayfa`}
     >
       <span className="brand__mark">
-        <img src={compact ? LOGO_DARK_PATH : LOGO_PATH} alt="" width={compact ? 75 : 84} height={compact ? 22 : 44} />
+        <img
+          src={compact ? LOGO_DARK_PATH : light ? LOGO_LIGHT_PATH : LOGO_PATH}
+          alt=""
+          width={compact || light ? 75 : 84}
+          height={compact || light ? 22 : 44}
+        />
       </span>
     </PageLink>
   );
@@ -1299,12 +1305,33 @@ function Header({ path, navigate, lang, setLang }) {
     [copy.nav.about, "/hakkimizda"],
   ];
 
+  const [scrolled, setScrolled] = useState(false);
+
   useEffect(() => setOpen(false), [path]);
 
+  // Yüzen başlık: sayfa kaydırılınca kapsül daralır, gölgesi belirginleşir.
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const next = window.scrollY > 24;
+      setScrolled((current) => (current === next ? current : next));
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
   return (
-    <header className="header">
+    <header className="header" data-scrolled={scrolled ? "true" : "false"}>
       <div className="shell header__inner">
-        <Logo navigate={navigate} />
+        <Logo navigate={navigate} light />
         <nav className={`nav-links ${open ? "nav-links--open" : ""}`} aria-label="Primary navigation">
           {navItems.map(([label, target]) => (
             <PageLink
